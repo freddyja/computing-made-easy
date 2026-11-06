@@ -1,8 +1,9 @@
-/** Shared site content — real contact/business facts from live WP audit. */
+/** Verified business facts. No ZIP, hours, rank, or years-of-experience count. */
 
 export const site = {
   name: "Computing Made Easy",
   smartHomeBrand: "Smart Touch Homes",
+  domain: "https://computingmadeeasy.org",
   phone: "407-925-2589",
   phoneTel: "+14079252589",
   email: "freddy@computingmadeeasy.org",
@@ -13,61 +14,34 @@ export const site = {
     full: "1720 Alameda Dr, Spring Hill FL",
   },
   owner: "Freddy Jara-Almonte",
-  ownerCreds: "Retired USAF",
-  coOwner: "Nathan JaraAlmonte",
+  service: "Retired United States Air Force",
+  certification: "Microsoft Certified Engineer",
+  coLead: "Nathan JaraAlmonte",
   since: 2004,
-  clientsApprox: 2500,
+  clientsLabel: "2500+",
+  clientsApprox: "~2500",
   serviceArea: "Spring Hill, Brooksville, and Central Florida",
+  bachelor: {
+    name: "Bachelor of Science in Information Systems Security",
+    school: "ITT Technical Institute",
+    place: "Albuquerque, NM",
+    date: "March 19, 2010",
+    expertise: "ethical hacking",
+  },
+  associate: {
+    name: "Associate of Applied Science in Information Technology – Computer Network Systems",
+    school: "ITT Technical Institute",
+    place: "Albuquerque, NM",
+    date: "March 14, 2008",
+  },
+  honors:
+    "Highest Honors Award (3.8–4.0 GPA across the entire degree program), ITT Technical Institute",
 } as const;
 
-export const navLinks = [
-  { href: "/business-it", label: "Business IT" },
-  { href: "/smart-home", label: "Smart Home" },
-  { href: "/security", label: "Security" },
-  { href: "/contact", label: "Contact" },
+export const smartHomePackages = [
+  { id: "basic", price: "$1,500–$2,000", popular: false },
+  { id: "standard", price: "$2,500–$3,500", popular: true },
+  { id: "premium", price: "$4,000–$5,500", popular: false },
 ] as const;
 
-/** Smart-home package ranges from live WordPress site — confirm later. */
-export const smartHomePackages = [
-  {
-    id: "basic",
-    name: "Basic",
-    subtitle: "Great for starters",
-    price: "$1,500–$2,000",
-    popular: false,
-    features: [
-      "Ring doorbell",
-      "Echo Dot",
-      "Philips Hue starter bulbs",
-      "eero Wi-Fi setup",
-    ],
-  },
-  {
-    id: "standard",
-    name: "Standard",
-    subtitle: "Best balance & coverage",
-    price: "$2,500–$3,500",
-    popular: true,
-    features: [
-      "Ring doorbell + 2 cameras",
-      "Echo Show 8",
-      "Expanded Philips Hue",
-      "eero 6+",
-      "Door/window sensors",
-    ],
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    subtitle: "Whole-home intelligence",
-    price: "$4,000–$5,500",
-    popular: false,
-    features: [
-      "4 cameras",
-      "Echo Show 10",
-      "Whole-home Philips Hue",
-      "eero Pro 6E",
-      "Smart locks & thermostats",
-    ],
-  },
-] as const;
+export type PackageId = (typeof smartHomePackages)[number]["id"];

@@ -1,21 +1,29 @@
 # Computing Made Easy
 
-Marketing site for **Computing Made Easy** / **Smart Touch Homes** — Central Florida IT, smart home, and security.
+Marketing site for **Computing Made Easy** / **Smart Touch Homes**. Freddy Jara-Almonte, retired United States Air Force. Central Florida IT, smart home, security, and a proposed practical-AI section.
+
+This repository is **not** the live site. Production is WordPress on IONOS at [computingmadeeasy.org](https://computingmadeeasy.org). Nothing in this repo changes DNS, email, or hosting.
+
+There is **no public demo**. Do not publish to GitHub Pages, Vercel, Netlify, or any other preview host. A later demo, if Freddy authorizes one, belongs on computingmadeeasy.org only.
 
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS v4
-- Accessible semantic HTML, focus states, mobile sticky call bar
+- Locales: English at the live paths, Spanish at `/es`, Brazilian Portuguese at `/pt-br`
+- Contact form opens the visitor’s email app. It does not send mail by itself.
 
 ## Pages
 
-| Route | Purpose |
-|-------|---------|
-| `/` | Hub home — hero, three funnels, trust strip |
-| `/smart-home` | Smart Touch Homes packages + why us |
-| `/business-it` | Business IT services funnel |
-| `/security` | Cameras / sensors / network security |
-| `/contact` | Phone, email, address, mailto form |
+| Public path | Spanish | Portuguese |
+|-------------|---------|------------|
+| `/` | `/es` | `/pt-br` |
+| `/business-it` | `/es/business-it` | `/pt-br/business-it` |
+| `/smart-home` | `/es/smart-home` | `/pt-br/smart-home` |
+| `/security` | `/es/security` | `/pt-br/security` |
+| `/contact` | `/es/contact` | `/pt-br/contact` |
+| `/app-center` | `/es/app-center` | `/pt-br/app-center` |
+
+`/en` redirects to the unprefixed English path. App Center links point at the real client apps. Those apps are not rebuilt here.
 
 ## Local development
 
@@ -24,20 +32,23 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
 ```bash
-npm run build   # production build
-npm start       # serve production build
+npm test
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-## Design
+## Docs
 
-- Navy `#0B1F3A` · Electric blue `#2563EB`
-- Contact: 407-925-2589 · freddy@computingmadeeasy.org · 1720 Alameda Dr, Spring Hill FL
+- `docs/Computing_Made_Easy_Content_Inventory_v1.md` — live-site inventory
+- `docs/Computing_Made_Easy_Redesign_Review_Notes_v2.md` — review notes, including draft copy
+- `docs/Computing_Made_Easy_Redesign_Review_Notes_v2_ES.md`
+- `docs/Computing_Made_Easy_Redesign_Review_Notes_v2_PT-BR.md`
+- `docs/Computing_Made_Easy_WordPress_to_Next_Migration_Plan_v1.md` — plan only, not executed
 
-Smart-home package ranges are taken from the live WordPress site and flagged as scope-dependent.
+## Contact facts used on the site
 
-## Deploy
+407-925-2589 · freddy@computingmadeeasy.org · 1720 Alameda Dr, Spring Hill FL
 
-Connect this repo to Vercel (Hobby) for preview deploys. Do **not** attach `computingmadeeasy.org` or change production DNS until cutover is approved.
+The ZIP code is not on the live site and is not shown here.

@@ -2,24 +2,30 @@
 
 :root {
   --navy: #0b1f3a;
+  --navy-2: #163154;
   --electric: #2563eb;
-  --electric-soft: #dbeafe;
-  --muted: #64748b;
-  --surface: #f8fafc;
-  --background: #ffffff;
+  --electric-deep: #1d4ed8;
+  --paper: #f4f6f8;
+  --line: #d5dde6;
+  --muted: #3e5166;
+  --flag-red: #b22234;
+  --background: #f4f6f8;
   --foreground: #0b1f3a;
 }
 
 @theme inline {
   --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
   --color-electric: var(--electric);
-  --color-electric-soft: var(--electric-soft);
+  --color-electric-deep: var(--electric-deep);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
   --color-muted: var(--muted);
-  --color-surface: var(--surface);
+  --color-flag-red: var(--flag-red);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-source);
+  --font-mono: var(--font-plex);
 }
 
 html {
@@ -29,64 +35,57 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), "Source Sans 3", sans-serif;
 }
 
-/* Focus rings for accessibility */
 :focus-visible {
-  outline: 2px solid var(--electric);
-  outline-offset: 2px;
+  outline: 2px solid var(--electric-deep);
+  outline-offset: 3px;
 }
 
-/* Subtle mesh for hero */
-.hero-mesh {
-  background-image: radial-gradient(
-      circle at 80% 40%,
-      rgba(37, 99, 235, 0.08) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 90% 80%,
-      rgba(11, 31, 58, 0.06) 0%,
-      transparent 45%
-    );
+::selection {
+  background: var(--navy);
+  color: white;
 }
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.tech-grid {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to right, rgba(11, 31, 58, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 31, 58, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-.animate-fade-up {
-  animation: fade-up 0.6s ease-out both;
+.flag-frame {
+  position: relative;
+  border: 1px solid rgba(11, 31, 58, 0.18);
+  padding: 0.85rem;
 }
 
-.animate-fade-up-delay-1 {
-  animation: fade-up 0.6s ease-out 0.1s both;
+.flag-frame::before,
+.flag-frame::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--electric-deep);
+  border-style: solid;
 }
 
-.animate-fade-up-delay-2 {
-  animation: fade-up 0.6s ease-out 0.2s both;
+.flag-frame::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
 }
 
-.animate-fade-up-delay-3 {
-  animation: fade-up 0.6s ease-out 0.3s both;
+.flag-frame::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 2px 2px 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .animate-fade-up,
-  .animate-fade-up-delay-1,
-  .animate-fade-up-delay-2,
-  .animate-fade-up-delay-3 {
-    animation: none;
   }
 }

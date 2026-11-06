@@ -1,131 +1,159 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, type FormEvent } from "react";
+import { buildMailto, interestValues, parseInterest, validateContact } from "@/lib/contact";
+import type { Dictionary } from "@/lib/dictionary";
 import { site } from "@/lib/site";
 import { Button } from "./Button";
 
-const interests = [
-  "Business IT",
-  "Smart Home",
-  "Security",
-  "General question",
-] as const;
+export function ContactForm({
+  d,
+  interest,
+}: {
+  d: Dictionary;
+  interest?: string;
+}) {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState(false);
+  const selected = parseInterest(interest);
 
-export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "ready">("idle");
-
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const interest = String(data.get("interest") || "").trim();
-    const message = String(data.get("message") || "").trim();
-
-    const subject = encodeURIComponent(
-      `Website inquiry — ${interest || "General"} — ${name || "New lead"}`,
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Phone: ${phone}`,
-        `Interest: ${interest}`,
-        "",
-        message,
-      ].join("\n"),
-    );
-
-    // Client-side mailto — no paid backend for MVP
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-    setStatus("ready");
+    const input = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      interest: String(data.get("interest") || ""),
+      message: String(data.get("message") || ""),
+    };
+    const nextErrors = validateContact(input, d.form.errors);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      setStatus(false);
+      const targetName = nextErrors.name ? "name" : nextErrors.email ? "email" : "message";
+      form.querySelector<HTMLElement>(`[name="${targetName}"]`)?.focus();
+      return;
+    }
+    window.location.href = buildMailto(input);
+    setStatus(true);
   }
 
   return (
     <form
+      action={`mailto:${site.email}`}
+      method="post"
+      encType="text/plain"
       onSubmit={onSubmit}
-      className="space-y-4 rounded-2xl border border-navy/10 bg-white p-6 shadow-sm"
       noValidate
+      className="border border-line bg-white p-5 sm:p-7"
+      aria-describedby="mailto-note"
     >
+      {Object.keys(errors).length > 0 && (
+        <p role="alert" className="mb-4 text-sm font-semibold text-flag-red">
+          {d.form.errors.summary}
+        </p>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-navy">
-          Name
+        <label className="block text-sm font-semibold text-navy">
+          {d.form.name}
           <input
             name="name"
-            required
             autoComplete="name"
-            className="mt-1.5 w-full rounded-xl border border-navy/15 bg-white px-3.5 py-2.5 text-navy placeholder:text-muted/60 focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
-            placeholder="Your name"
+            required
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={errors.name ? "err-name" : undefined}
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 font-normal text-navy"
           />
+          {errors.name && (
+            <span id="err-name" className="mt-1 block text-sm font-medium text-flag-red">
+              {errors.name}
+            </span>
+          )}
         </label>
-        <label className="block text-sm font-medium text-navy">
-          Email
+        <label className="block text-sm font-semibold text-navy">
+          {d.form.email}
           <input
             name="email"
             type="email"
-            required
             autoComplete="email"
-            className="mt-1.5 w-full rounded-xl border border-navy/15 bg-white px-3.5 py-2.5 text-navy placeholder:text-muted/60 focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
-            placeholder="you@example.com"
+            required
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "err-email" : undefined}
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 font-normal text-navy"
           />
+          {errors.email && (
+            <span id="err-email" className="mt-1 block text-sm font-medium text-flag-red">
+              {errors.email}
+            </span>
+          )}
         </label>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-navy">
-          Phone
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm font-semibold text-navy">
+          {d.form.phone}
           <input
             name="phone"
             type="tel"
             autoComplete="tel"
-            className="mt-1.5 w-full rounded-xl border border-navy/15 bg-white px-3.5 py-2.5 text-navy placeholder:text-muted/60 focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
-            placeholder={site.phone}
+            placeholder={d.form.phoneOptional}
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 font-normal text-navy placeholder:text-muted"
           />
         </label>
-        <label className="block text-sm font-medium text-navy">
-          Service interest
+        <label className="block text-sm font-semibold text-navy">
+          {d.form.interest}
           <select
             name="interest"
-            className="mt-1.5 w-full rounded-xl border border-navy/15 bg-white px-3.5 py-2.5 text-navy focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
-            defaultValue="Smart Home"
+            defaultValue={selected}
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 font-normal text-navy"
           >
-            {interests.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
+            {interestValues.map((value) => (
+              <option key={value} value={value}>
+                {d.form.interests[value].label}
               </option>
             ))}
           </select>
         </label>
       </div>
-      <label className="block text-sm font-medium text-navy">
-        Message
+      <label className="mt-4 block text-sm font-semibold text-navy">
+        {d.form.message}
         <textarea
           name="message"
           required
-          rows={4}
-          className="mt-1.5 w-full resize-y rounded-xl border border-navy/15 bg-white px-3.5 py-2.5 text-navy placeholder:text-muted/60 focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
-          placeholder="Tell us what you need help with…"
+          rows={5}
+          placeholder={d.form.messagePlaceholder}
+          aria-invalid={errors.message ? true : undefined}
+          aria-describedby={errors.message ? "err-message" : undefined}
+          className="mt-1.5 w-full resize-y border border-line bg-white px-3 py-2.5 font-normal text-navy placeholder:text-muted"
         />
+        {errors.message && (
+          <span id="err-message" className="mt-1 block text-sm font-medium text-flag-red">
+            {errors.message}
+          </span>
+        )}
       </label>
-      <Button type="submit" className="w-full sm:w-auto">
-        Send message →
+      <p id="mailto-note" className="mt-4 text-sm leading-relaxed text-muted">
+        {d.form.explanation}
+      </p>
+      <Button type="submit" className="mt-4">
+        {d.form.submit}
       </Button>
-      {status === "ready" && (
-        <p className="text-sm text-muted" role="status">
-          Opening your email app… If nothing opens, email us at{" "}
-          <a className="font-medium text-electric underline" href={`mailto:${site.email}`}>
+      {status && (
+        <p role="status" className="mt-4 text-sm leading-relaxed text-navy">
+          {d.form.status}{" "}
+          <a className="font-semibold text-electric-deep underline" href={`mailto:${site.email}`}>
             {site.email}
           </a>
           .
         </p>
       )}
-      <p className="text-xs text-muted">
-        Or call{" "}
-        <a className="font-semibold text-electric" href={`tel:${site.phoneTel}`}>
+      <p className="mt-4 text-sm text-muted">
+        {d.form.sameDay.split(site.phone)[0]}
+        <a className="font-semibold text-electric-deep" href={`tel:${site.phoneTel}`}>
           {site.phone}
-        </a>{" "}
-        — we usually respond the same business day.
+        </a>
+        {d.form.sameDay.split(site.phone)[1] ?? ""}
       </p>
     </form>
   );

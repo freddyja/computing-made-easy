@@ -1,81 +1,58 @@
 import Link from "next/link";
-import { navLinks, site } from "@/lib/site";
-import { LogoMark, MailIcon, MapPinIcon, PhoneIcon } from "./icons";
+import type { Dictionary } from "@/lib/dictionary";
+import { publicHref, type Locale, type PageId } from "@/lib/routes";
+import { site } from "@/lib/site";
 
-export function Footer() {
+const links: { page: PageId; key: "home" | "businessIt" | "smartHome" | "security" | "contact" | "appCenter" }[] = [
+  { page: "home", key: "home" },
+  { page: "business-it", key: "businessIt" },
+  { page: "smart-home", key: "smartHome" },
+  { page: "security", key: "security" },
+  { page: "app-center", key: "appCenter" },
+  { page: "contact", key: "contact" },
+];
+
+export function Footer({ locale, d }: { locale: Locale; d: Dictionary }) {
   return (
-    <footer className="mt-auto border-t border-navy/5 bg-navy text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3 lg:px-8">
+    <footer className="mt-auto bg-navy text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2.5">
-            <LogoMark className="h-8 w-8 brightness-0 invert" />
-            <div>
-              <p className="font-bold">{site.name}</p>
-              <p className="text-sm text-blue-200">{site.smartHomeBrand}</p>
-            </div>
-          </div>
-          <p className="mt-4 text-sm leading-relaxed text-blue-100/80">
-            Veteran-owned IT, smart home, and security for{" "}
-            {site.serviceArea}. Serving homes and businesses since {site.since}.
-          </p>
+          <p className="text-lg font-semibold">{site.name}</p>
+          <p className="mt-1 text-sm text-white/70">{site.smartHomeBrand}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/80">{d.footer.blurb}</p>
+          <p className="mt-4 text-sm font-semibold">{d.footer.service}</p>
         </div>
-
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-200">
-            Explore
-          </p>
-          <ul className="mt-3 space-y-2">
-            <li>
-              <Link href="/" className="text-sm text-white/90 hover:text-white">
-                Home
-              </Link>
-            </li>
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm text-white/90 hover:text-white"
-                >
-                  {link.label}
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/60">{d.nav.explore}</p>
+          <ul className="mt-4 space-y-2">
+            {links.map((link) => (
+              <li key={link.page}>
+                <Link href={publicHref(locale, link.page)} className="text-sm text-white/90 hover:text-white">
+                  {d.nav[link.key]}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-200">
-            Contact
-          </p>
-          <ul className="mt-3 space-y-3 text-sm">
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/60">{d.nav.contact}</p>
+          <ul className="mt-4 space-y-3 text-sm">
             <li>
-              <a
-                href={`tel:${site.phoneTel}`}
-                className="inline-flex items-center gap-2 text-white/90 hover:text-white"
-              >
-                <PhoneIcon className="h-4 w-4" />
+              <a href={`tel:${site.phoneTel}`} className="text-white hover:underline">
                 {site.phone}
               </a>
             </li>
             <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-flex items-center gap-2 text-white/90 hover:text-white"
-              >
-                <MailIcon className="h-4 w-4" />
+              <a href={`mailto:${site.email}`} className="break-all text-white hover:underline">
                 {site.email}
               </a>
             </li>
-            <li className="inline-flex items-start gap-2 text-white/80">
-              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>{site.address.full}</span>
-            </li>
+            <li className="text-white/80">{site.address.full}</li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-xs text-blue-200/70">
-        © {new Date().getFullYear()} {site.name}. Veteran-owned · Since{" "}
-        {site.since}.
+      <div className="border-t border-white/10 py-4 text-center text-xs text-white/60">
+        © {new Date().getFullYear()} {site.name}. {d.footer.rights}
       </div>
     </footer>
   );

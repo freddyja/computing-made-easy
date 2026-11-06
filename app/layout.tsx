@@ -1,58 +1,45 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { MobileCallBar } from "@/components/MobileCallBar";
+import { IBM_Plex_Mono, Source_Sans_3 } from "next/font/google";
+import { headers } from "next/headers";
+import { htmlLang, isLocale, LOCALE_HEADER } from "@/lib/routes";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sans = Source_Sans_3({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-source",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.domain),
   title: {
-    default: `${site.name} | IT, Smart Home & Security — Central Florida`,
+    default: site.name,
     template: `%s | ${site.name}`,
   },
-  description: `Veteran-owned IT, smart home, and security for ${site.serviceArea}. Since ${site.since}. Call ${site.phone}.`,
-  metadataBase: new URL("https://computingmadeeasy.org"),
-  openGraph: {
-    title: site.name,
-    description: `IT and smart homes that just work. Serving ${site.serviceArea} since ${site.since}.`,
-    type: "website",
-  },
+  applicationName: site.name,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const raw = headerList.get(LOCALE_HEADER) ?? "en";
+  const lang = isLocale(raw) ? htmlLang(raw) : "en";
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="flex min-h-full flex-col bg-white text-navy">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-electric focus:px-4 focus:py-2 focus:text-white"
-        >
-          Skip to content
-        </a>
-        <Header />
-        <main id="main" className="flex-1 pb-16 md:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <MobileCallBar />
+    <html lang={lang} className={`${sans.variable} ${mono.variable} h-full`}>
+      <body className="flex min-h-full flex-col bg-paper font-sans text-navy antialiased">
+        {children}
       </body>
     </html>
   );

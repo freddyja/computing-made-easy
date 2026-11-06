@@ -1,54 +1,46 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "outline" | "ghost";
+type Variant = "solid" | "ghost" | "light" | "lightGhost";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-electric text-white hover:bg-blue-600 shadow-sm shadow-electric/25",
-  secondary:
-    "bg-white text-navy border border-navy/20 hover:border-navy/40 hover:bg-surface",
-  outline:
-    "bg-white text-electric border border-electric hover:bg-electric-soft",
-  ghost: "bg-transparent text-electric hover:bg-electric-soft",
+  solid: "bg-navy text-white hover:bg-navy-2",
+  ghost: "border border-navy/20 bg-white text-navy hover:border-navy",
+  light: "bg-white text-navy hover:bg-paper",
+  lightGhost: "border border-white/40 text-white hover:bg-white/10",
 };
 
-type Common = {
+type Props = {
   children: ReactNode;
   className?: string;
   variant?: Variant;
+  href?: string;
+  external?: boolean;
+  type?: "button" | "submit";
 };
-
-type AsButton = Common &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
-
-type AsLink = Common & { href: string; external?: boolean };
 
 export function Button({
   children,
   className = "",
-  variant = "primary",
-  ...props
-}: AsButton | AsLink) {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric focus-visible:ring-offset-2 disabled:opacity-60";
-
-  const classes = `${base} ${variants[variant]} ${className}`;
-
-  if ("href" in props && props.href) {
-    const { href, external, ...rest } = props as AsLink & {
-      external?: boolean;
-    };
-    if (external || href.startsWith("tel:") || href.startsWith("mailto:")) {
+  variant = "solid",
+  href,
+  external,
+  type = "button",
+}: Props) {
+  const classes = `inline-flex min-h-11 items-center justify-center px-5 text-sm font-semibold tracking-tight transition-colors ${variants[variant]} ${className}`;
+  if (href) {
+    const offsite =
+      external || href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:");
+    if (offsite && !href.startsWith("tel:") && !href.startsWith("mailto:") && !href.startsWith("/")) {
       return (
-        <a
-          href={href}
-          className={classes}
-          {...(external
-            ? { target: "_blank", rel: "noopener noreferrer" }
-            : {})}
-          {...(rest as object)}
-        >
+        <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      );
+    }
+    if (href.startsWith("tel:") || href.startsWith("mailto:")) {
+      return (
+        <a href={href} className={classes}>
           {children}
         </a>
       );
@@ -59,10 +51,8 @@ export function Button({
       </Link>
     );
   }
-
-  const { ...btnProps } = props as AsButton;
   return (
-    <button type="button" className={classes} {...btnProps}>
+    <button type={type} className={classes}>
       {children}
     </button>
   );
