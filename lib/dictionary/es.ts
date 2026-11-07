@@ -13,7 +13,7 @@ const es: Dictionary = {
     caption: "Bandera de los Estados Unidos",
   },
   identity: {
-    line: "Retirado de la Fuerza Aérea de los Estados Unidos",
+    line: "Retirado de la Fuerza Aérea de Estados Unidos",
     since: "Desde 2004",
     veteran: "Empresa de un veterano",
   },
@@ -22,24 +22,25 @@ const es: Dictionary = {
     smartHome: "Casa inteligente",
     security: "Seguridad",
     appCenter: "Centro de apps",
-    quote: "Cotización sin costo",
+    quote: "Solicitar presupuesto gratuito",
     home: "Inicio",
     contact: "Contacto",
     explore: "Explorar",
   },
   hero: {
     copyStatus: "proposed",
-    line1: "Retirado de la Fuerza Aérea de los Estados Unidos",
+    line1: "Retirado de la Fuerza Aérea de Estados Unidos",
     line2: "Freddy Jara-Almonte",
-    story:
-      "Retirado de la Fuerza Aérea de los Estados Unidos, Freddy Jara-Almonte sigue presente para la gente de aquí. Ayuda a hogares y negocios en Spring Hill, Brooksville y el centro de Florida a convivir con la tecnología de forma más sencilla. Desde 2004.",
+    story: "Ayuda tecnológica práctica para tu hogar y tu negocio.",
     endorsement:
-      "Computing Made Easy es un negocio privado. Retirado de la Fuerza Aérea de los Estados Unidos describe el servicio del propio Freddy. Este sitio no es un programa del gobierno de los Estados Unidos ni de la Fuerza Aérea.",
-    call: "Llamar al 407-925-2589",
-    quote: "Cotización sin costo",
-    portraitAlt: "Retrato de Freddy Jara-Almonte, propietario de Computing Made Easy.",
+      "Empresa privada; sin afiliación ni respaldo del Gobierno de EE. UU. o de su Fuerza Aérea.",
+    call: "Llamar a Freddy",
+    callAria: "Llamar a Freddy al 407-925-2589",
+    quote: "Solicitar presupuesto gratuito",
+    portraitAlt:
+      "Imagen provisional. El parecido no está confirmado. La persona prevista es Freddy Jara-Almonte.",
     portraitCaption: "Freddy Jara-Almonte",
-    portraitMeta: "Retirado de la Fuerza Aérea de los Estados Unidos",
+    portraitMeta: "Imagen provisional — verificar parecido",
   },
   credentials: {
     copyStatus: "owner-confirmed",

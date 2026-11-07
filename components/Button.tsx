@@ -5,12 +5,13 @@ type Variant = "solid" | "ghost" | "light" | "lightGhost";
 
 const variants: Record<Variant, string> = {
   solid:
-    "bg-gold text-navy hover:bg-gold-deep active:bg-gold-deep focus-visible:outline-navy",
+    "btn-gold rounded-lg border-2 border-navy bg-gold text-ink hover:bg-gold-deep active:bg-gold active:shadow-[inset_0_0_0_2px_#003B71]",
   ghost:
-    "border-2 border-gold bg-white text-navy hover:bg-gold active:bg-gold-deep",
-  light: "bg-white text-navy hover:bg-gold active:bg-gold-deep",
+    "rounded-lg border-2 border-navy bg-white text-navy hover:bg-paper active:shadow-[inset_0_0_0_2px_#003B71]",
+  light:
+    "rounded-lg border-2 border-navy bg-white text-ink hover:bg-paper active:shadow-[inset_0_0_0_2px_#003B71]",
   lightGhost:
-    "border-2 border-gold bg-transparent text-gold hover:bg-gold hover:text-navy active:bg-gold-deep active:text-navy",
+    "rounded-lg border-2 border-white bg-transparent text-white hover:bg-white hover:text-navy active:bg-white active:text-navy active:shadow-[inset_0_0_0_2px_#003B71]",
 };
 
 type Props = {
@@ -30,7 +31,7 @@ export function Button({
   external,
   type = "button",
 }: Props) {
-  const classes = `inline-flex min-h-11 items-center justify-center px-5 text-sm font-semibold tracking-tight transition-colors ${variants[variant]} ${className}`;
+  const classes = `inline-flex min-h-11 items-center justify-center px-5 text-base font-semibold tracking-tight transition-colors duration-150 ${variants[variant]} ${className}`;
   if (href) {
     const offsite =
       external || href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:");

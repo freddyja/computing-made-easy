@@ -17,30 +17,36 @@ function focusCopy(d: Dictionary, id: FocusId) {
 export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
   const sections = {
     service: (
-      <section data-section="service" className="tech-grid border-b border-gold/40 text-white" data-copy-status={d.hero.copyStatus}>
-        <div className="mx-auto grid max-w-6xl items-start gap-8 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.15fr_1.2fr_0.85fr] lg:gap-10 lg:py-20">
-          <div className="flag-frame bg-white">
+      <section data-section="service" className="on-blue border-b border-white/15 bg-navy text-white" data-copy-status={d.hero.copyStatus}>
+        <div className="hero-layout mx-auto max-w-[1200px] px-5 py-12 sm:px-6 lg:py-20">
+          <div className="hero-flag flag-frame">
             <Flag title={d.flag.title} />
-            <p className="mt-3 pr-4 font-mono text-[10px] uppercase tracking-[0.16em] text-gold-ink">{d.flag.caption}</p>
+            <p className="mt-3 text-sm text-ink">{d.flag.caption}</p>
           </div>
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">
-              {site.name}
-            </p>
-            <h1 className="mt-3 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-              <span className="block">{d.hero.line1}</span>
-              <span className="mt-2 block">{d.hero.line2.replaceAll("-", "\u2011")}</span>
+          <div className="hero-identity">
+            <p className="text-base font-semibold text-gold">{d.hero.line1}</p>
+            <h1 className="mt-3 max-w-[20ch] text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-[1.08] tracking-tight text-white">
+              {d.hero.line2}
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90">{d.hero.story}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <p className="mt-4 max-w-[38ch] text-lg leading-relaxed text-white">{d.hero.story}</p>
+          </div>
+          <div className="hero-actions">
+            <ul className="max-w-[60ch] space-y-2 text-base leading-snug text-white">
+              <li>{d.credentials.items.certification.value}</li>
+              <li>{d.credentials.items.bachelor.value}</li>
+              <li>{d.credentials.items.since.value}</li>
+            </ul>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button href={`tel:${site.phoneTel}`} variant="lightGhost">
-                {d.hero.call}
+                <span className="sr-only">{d.hero.callAria}</span>
+                <span aria-hidden="true">{d.hero.call}</span>
               </Button>
               <Button href={publicHref(locale, "contact")}>{d.hero.quote}</Button>
             </div>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/75">{d.hero.endorsement}</p>
+            <p className="mt-4 max-w-[60ch] text-base leading-relaxed text-white/90">{d.hero.endorsement}</p>
           </div>
-          <figure className="flag-frame bg-white">
+          <figure className="hero-portrait overflow-hidden rounded-lg bg-white text-ink">
+            <p className="bg-ink px-4 py-3 text-base font-semibold text-white">{d.hero.portraitMeta}</p>
             <Image
               src="/brand/portrait.jpg"
               alt={d.hero.portraitAlt}
@@ -49,12 +55,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
               priority
               className="aspect-square w-full object-cover"
             />
-            <figcaption className="mt-3 pr-4">
-              <span className="block font-semibold text-navy">{d.hero.portraitCaption}</span>
-              <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-gold-ink">
-                {d.hero.portraitMeta}
-              </span>
-            </figcaption>
+            <figcaption className="px-4 py-3 text-base font-semibold">{d.hero.portraitCaption}</figcaption>
           </figure>
         </div>
       </section>
@@ -64,7 +65,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
         id={d.credentials.id}
         data-section="credentials"
         data-copy-status={d.credentials.copyStatus}
-        className="border-y border-gold/50 bg-paper"
+        className="border-y border-line bg-white"
         aria-labelledby="credentials-heading"
       >
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
@@ -81,7 +82,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
       <section
         id={d.focus.id}
         data-section="focus"
-        className="bg-navy text-white"
+        className="on-blue bg-navy text-white"
         aria-labelledby="services-heading"
       >
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">

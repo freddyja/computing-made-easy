@@ -68,8 +68,8 @@ export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/40 bg-navy">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+    <header className="on-blue sticky top-0 z-40 border-b border-white/15 bg-navy-2">
+      <div className="mx-auto flex min-h-[88px] max-w-[1200px] items-center justify-between gap-4 px-5 py-3 sm:px-6">
         <Logo
           href={publicHref(locale, "home")}
           name={site.name}
@@ -85,10 +85,10 @@ export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
                 key={link.page}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`px-3 py-2 text-sm font-semibold ${
+                className={`px-3 py-2 text-base font-semibold ${
                   active
                     ? "text-gold underline decoration-2 underline-offset-8"
-                    : "text-white/90 hover:text-gold active:text-gold"
+                    : "text-white hover:text-gold hover:underline active:text-gold"
                 }`}
               >
                 {d.nav[link.key]}
@@ -98,7 +98,9 @@ export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
         </nav>
         <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitcher locale={locale} pathname={pathname} d={d} />
-          <Button href={publicHref(locale, "contact")}>{d.nav.quote}</Button>
+          <Button href={publicHref(locale, "contact")} className="max-w-[16rem] whitespace-normal text-center leading-tight">
+            {d.nav.quote}
+          </Button>
         </div>
         <button
           ref={buttonRef}

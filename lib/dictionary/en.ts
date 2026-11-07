@@ -22,7 +22,7 @@ export const en = {
     smartHome: "Smart Home",
     security: "Security",
     appCenter: "App Center",
-    quote: "Free quote",
+    quote: "Request a free quote",
     home: "Home",
     contact: "Contact",
     explore: "Explore",
@@ -31,15 +31,16 @@ export const en = {
     copyStatus: "proposed",
     line1: "Retired United States Air Force",
     line2: "Freddy Jara-Almonte",
-    story:
-      "Retired from the United States Air Force, Freddy Jara-Almonte still shows up for people here at home. He helps households and businesses in Spring Hill, Brooksville, and Central Florida make technology easier to live with. Since 2004.",
+    story: "Practical technology help for your home and business.",
     endorsement:
-      "Computing Made Easy is a private business. Retired United States Air Force describes Freddy’s own service. This site is not a U.S. government or Air Force program.",
-    call: "Call 407-925-2589",
-    quote: "Free quote",
-    portraitAlt: "Portrait of Freddy Jara-Almonte, owner of Computing Made Easy.",
+      "Private business; not affiliated with or endorsed by the U.S. government or Air Force.",
+    call: "Call Freddy",
+    callAria: "Call Freddy at 407-925-2589",
+    quote: "Request a free quote",
+    portraitAlt:
+      "Placeholder image. Likeness is not confirmed. The intended subject is Freddy Jara-Almonte.",
     portraitCaption: "Freddy Jara-Almonte",
-    portraitMeta: "Retired United States Air Force",
+    portraitMeta: "Placeholder — verify likeness",
   },
   credentials: {
     copyStatus: "owner-confirmed",

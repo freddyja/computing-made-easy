@@ -44,7 +44,7 @@ export function AppCenterPage({ locale, d }: { locale: Locale; d: Dictionary; in
       <main id="directory" className="mx-auto w-full max-w-6xl flex-1 px-5 py-12 sm:px-8 sm:py-16">
         <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{copy.title}</h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{copy.body}</p>
-        <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold-ink">
+        <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-navy">
           {allApps.length} {copy.sites}
         </p>
         <div className="mt-12 space-y-12">
@@ -54,7 +54,7 @@ export function AppCenterPage({ locale, d }: { locale: Locale; d: Dictionary; in
                 <h2 id={`group-${group.id}`} className="text-2xl font-semibold text-navy">
                   {copy.groups[group.id]}
                 </h2>
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-gold-ink">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-navy">
                   {group.apps.length} {copy.sites}
                 </p>
               </div>
@@ -70,7 +70,7 @@ export function AppCenterPage({ locale, d }: { locale: Locale; d: Dictionary; in
                         className="grid gap-2 py-5 hover:bg-white sm:grid-cols-[180px_1fr_auto] sm:items-start sm:gap-6"
                         aria-label={`${label} (${copy.opensNew})`}
                       >
-                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-gold-ink">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-navy">
                           {app.subcategory}
                         </span>
                         <span>
@@ -83,7 +83,7 @@ export function AppCenterPage({ locale, d }: { locale: Locale; d: Dictionary; in
                           </span>
                           <span className="mt-1 block text-sm leading-relaxed text-muted">{app.tagline}</span>
                         </span>
-                        <span className="text-sm font-semibold text-gold-ink underline decoration-gold underline-offset-4">
+                        <span className="text-sm font-semibold text-navy underline decoration-navy underline-offset-4 hover:decoration-2">
                           {copy.visit}
                         </span>
                       </a>

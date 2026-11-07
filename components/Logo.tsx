@@ -28,7 +28,7 @@ export function Logo({
           {name}
         </span>
         <span
-          className={`mt-1 block truncate font-mono text-[10px] font-medium uppercase tracking-[0.14em] ${onBlue ? "text-gold" : "text-gold-ink"}`}
+          className={`mt-1 block truncate font-mono text-[10px] font-medium uppercase tracking-[0.14em] ${onBlue ? "text-gold" : "text-navy"}`}
         >
           {sub}
         </span>

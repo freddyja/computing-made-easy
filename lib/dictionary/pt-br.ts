@@ -13,7 +13,7 @@ const ptBr: Dictionary = {
     caption: "Bandeira dos Estados Unidos",
   },
   identity: {
-    line: "Retirado da Força Aérea dos Estados Unidos",
+    line: "Militar reformado da Força Aérea dos Estados Unidos",
     since: "Desde 2004",
     veteran: "Empresa de um veterano",
   },
@@ -22,29 +22,30 @@ const ptBr: Dictionary = {
     smartHome: "Casa inteligente",
     security: "Segurança",
     appCenter: "Central de apps",
-    quote: "Orçamento gratuito",
+    quote: "Solicitar orçamento gratuito",
     home: "Início",
     contact: "Contato",
     explore: "Explorar",
   },
   hero: {
     copyStatus: "proposed",
-    line1: "Retirado da Força Aérea dos Estados Unidos",
+    line1: "Militar reformado da Força Aérea dos Estados Unidos",
     line2: "Freddy Jara-Almonte",
-    story:
-      "Retirado da Força Aérea dos Estados Unidos, Freddy Jara-Almonte continua presente para as pessoas daqui. Ele ajuda casas e empresas em Spring Hill, Brooksville e na Flórida Central a conviver com a tecnologia de um jeito mais simples. Desde 2004.",
+    story: "Ajuda prática com tecnologia para sua casa e sua empresa.",
     endorsement:
-      "A Computing Made Easy é um negócio particular. Retirado da Força Aérea dos Estados Unidos descreve o serviço do próprio Freddy. Este site não é um programa do governo dos Estados Unidos nem da Força Aérea.",
-    call: "Ligar para 407-925-2589",
-    quote: "Orçamento gratuito",
-    portraitAlt: "Retrato de Freddy Jara-Almonte, proprietário da Computing Made Easy.",
+      "Empresa privada; sem vínculo ou endosso do governo dos EUA ou de sua Força Aérea.",
+    call: "Ligar para Freddy",
+    callAria: "Ligar para Freddy no 407-925-2589",
+    quote: "Solicitar orçamento gratuito",
+    portraitAlt:
+      "Imagem provisória. A semelhança não está confirmada. A pessoa prevista é Freddy Jara-Almonte.",
     portraitCaption: "Freddy Jara-Almonte",
-    portraitMeta: "Retirado da Força Aérea dos Estados Unidos",
+    portraitMeta: "Imagem provisória — confirmar semelhança",
   },
   credentials: {
     copyStatus: "owner-confirmed",
     id: "credentials",
-    heading: "Credenciais",
+    heading: "Qualificações",
     items: {
       service: {
         label: "Serviço",

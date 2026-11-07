@@ -13,7 +13,7 @@ const links: { page: PageId; key: "home" | "businessIt" | "smartHome" | "securit
 
 export function Footer({ locale, d }: { locale: Locale; d: Dictionary }) {
   return (
-    <footer className="mt-auto border-t-4 border-gold bg-navy-2 text-white">
+    <footer className="on-blue mt-auto border-t-4 border-gold bg-navy-2 text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3">
         <div>
           <p className="text-lg font-semibold">{site.name}</p>

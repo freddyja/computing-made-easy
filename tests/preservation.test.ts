@@ -236,15 +236,17 @@ describe("flag geometry and contrast", () => {
     expect(starPoints(0, 0, 10).split(" ")).toHaveLength(10);
   });
 
-  it("keeps Air Force blue, gold, and ink pairs above WCAG AA", () => {
-    expect(contrast("#00308F", "#FFFFFF")).toBeGreaterThan(7);
-    expect(contrast("#FFFFFF", "#00308F")).toBeGreaterThan(7);
-    expect(contrast("#FFCD00", "#00308F")).toBeGreaterThan(4.5);
-    expect(contrast("#00308F", "#FFCD00")).toBeGreaterThan(4.5);
-    expect(contrast("#6B4F00", "#FFFFFF")).toBeGreaterThan(4.5);
-    expect(contrast("#6B4F00", "#E4ECF7")).toBeGreaterThan(4.5);
-    expect(contrast("#2C4266", "#E4ECF7")).toBeGreaterThan(4.5);
-    expect(contrast("#FFCD00", "#FFFFFF")).toBeLessThan(3);
+  it("keeps the Bridge blue, gold, and ink pairs in the required contrast bands", () => {
+    expect(contrast("#003B71", "#FFFFFF")).toBeGreaterThan(7);
+    expect(contrast("#003B71", "#D4AF37")).toBeGreaterThan(4.5);
+    expect(contrast("#002B52", "#FFFFFF")).toBeGreaterThan(7);
+    expect(contrast("#002B52", "#D4AF37")).toBeGreaterThan(4.5);
+    expect(contrast("#0B1F3A", "#D4AF37")).toBeGreaterThan(4.5);
+    expect(contrast("#0B1F3A", "#E4C45C")).toBeGreaterThan(4.5);
+    expect(contrast("#003B71", "#F4F6F8")).toBeGreaterThan(7);
+    expect(contrast("#FFFFFF", "#D4AF37")).toBeLessThan(3);
+    expect(en.hero.line2).toBe("Freddy Jara-Almonte");
+    expect(en.hero.portraitMeta).toMatch(/Placeholder/i);
   });
 });
 
