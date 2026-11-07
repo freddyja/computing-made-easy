@@ -23,7 +23,7 @@ There is **no public demo**. Do not publish to GitHub Pages, Vercel, Netlify, or
 | `/contact` | `/es/contact` | `/pt-br/contact` |
 | `/app-center` | `/es/app-center` | `/pt-br/app-center` |
 
-`/en` redirects to the unprefixed English path. App Center links point at the real client apps. Those apps are not rebuilt here.
+`/en` redirects to the unprefixed English path. App Center is its own page at `/app-center` (and `/es/app-center`, `/pt-br/app-center`), opened from the header tab. It is not repeated in the footer or inside the marketing pages. Its links point at the real client apps. Those apps are not rebuilt here.
 
 ## Local development
 

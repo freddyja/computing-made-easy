@@ -1,21 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --navy: #0b1f3a;
-  --navy-2: #163154;
-  --electric: #2563eb;
-  --electric-deep: #1d4ed8;
-  --paper: #f4f6f8;
-  --line: #d5dde6;
-  --muted: #3e5166;
+  /* US Air Force blue and gold, used as a site palette. The national flag keeps its own colors. */
+  --navy: #00308f;
+  --navy-2: #00266e;
+  --gold: #ffcd00;
+  --gold-deep: #e0b400;
+  --gold-ink: #6b4f00;
+  --electric: #ffcd00;
+  --electric-deep: #6b4f00;
+  --paper: #e4ecf7;
+  --line: #c5d4ea;
+  --muted: #2c4266;
   --flag-red: #b22234;
-  --background: #f4f6f8;
-  --foreground: #0b1f3a;
+  --background: #e4ecf7;
+  --foreground: #00308f;
 }
 
 @theme inline {
   --color-navy: var(--navy);
   --color-navy-2: var(--navy-2);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-ink: var(--gold-ink);
   --color-electric: var(--electric);
   --color-electric-deep: var(--electric-deep);
   --color-paper: var(--paper);
@@ -39,7 +46,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--electric-deep);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
 
@@ -49,16 +56,17 @@ body {
 }
 
 .tech-grid {
-  background-color: var(--paper);
+  background-color: var(--navy);
   background-image:
-    linear-gradient(to right, rgba(11, 31, 58, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(11, 31, 58, 0.045) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 205, 0, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .flag-frame {
   position: relative;
-  border: 1px solid rgba(11, 31, 58, 0.18);
+  border: 1px solid rgba(255, 205, 0, 0.7);
+  background: #ffffff;
   padding: 0.85rem;
 }
 
@@ -68,7 +76,7 @@ body {
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: var(--electric-deep);
+  border-color: var(--gold);
   border-style: solid;
 }
 
@@ -82,6 +90,13 @@ body {
   right: -1px;
   bottom: -1px;
   border-width: 0 2px 2px 0;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--navy);
+  border-color: var(--gold);
 }
 
 @media (prefers-reduced-motion: reduce) {

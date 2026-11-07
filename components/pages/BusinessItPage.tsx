@@ -11,7 +11,7 @@ export function BusinessItPage({ locale, d }: { locale: Locale; d: Dictionary })
     <>
       <PageIntro kicker={copy.kicker} title={copy.title} lede={copy.lede}>
         <Button href={publicHref(locale, "contact")}>{copy.primary}</Button>
-        <Button href={`tel:${site.phoneTel}`} variant="ghost">
+        <Button href={`tel:${site.phoneTel}`} variant="lightGhost">
           {site.phone}
         </Button>
       </PageIntro>

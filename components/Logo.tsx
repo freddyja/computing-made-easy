@@ -5,10 +5,12 @@ export function Logo({
   href,
   name,
   sub,
+  onBlue = false,
 }: {
   href: string;
   name: string;
   sub: string;
+  onBlue?: boolean;
 }) {
   return (
     <Link href={href} className="flex min-w-0 items-center gap-3 rounded-sm">
@@ -20,10 +22,14 @@ export function Logo({
         className="h-11 w-11 shrink-0 bg-white object-contain"
       />
       <span className="min-w-0">
-        <span className="block truncate text-[15px] font-semibold leading-none tracking-tight text-navy">
+        <span
+          className={`block truncate text-[15px] font-semibold leading-none tracking-tight ${onBlue ? "text-white" : "text-navy"}`}
+        >
           {name}
         </span>
-        <span className="mt-1 block truncate font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-electric-deep">
+        <span
+          className={`mt-1 block truncate font-mono text-[10px] font-medium uppercase tracking-[0.14em] ${onBlue ? "text-gold" : "text-gold-ink"}`}
+        >
           {sub}
         </span>
       </span>

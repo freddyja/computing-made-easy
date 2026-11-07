@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { allApps, appGroups } from "../lib/apps";
 import { buildMailto, parseInterest, validateContact } from "../lib/contact";
@@ -114,7 +116,8 @@ describe("routes and locales", () => {
     expect(homeSectionOrder).toEqual(["service", "credentials", "focus", "close"]);
     expect(focusIds).toEqual(["ai", "smart-home", "business-it", "security"]);
     expect(focusLinks("en", "ai").primary).toBe("/contact?interest=ai");
-    expect(focusLinks("es", "ai").secondary).toBe("/es/app-center#tools");
+    expect(focusLinks("en", "ai").secondary).toBeUndefined();
+    expect(focusLinks("es", "ai").primary).toBe("/es/contact?interest=ai");
     expect(focusLinks("pt-br", "security").primary).toBe("/pt-br/security");
   });
 });
@@ -233,11 +236,44 @@ describe("flag geometry and contrast", () => {
     expect(starPoints(0, 0, 10).split(" ")).toHaveLength(10);
   });
 
-  it("keeps navy text and muted text above WCAG AA on white", () => {
-    expect(contrast("#0B1F3A", "#FFFFFF")).toBeGreaterThan(7);
-    expect(contrast("#3E5166", "#FFFFFF")).toBeGreaterThan(4.5);
-    expect(contrast("#1D4ED8", "#FFFFFF")).toBeGreaterThan(4.5);
-    expect(contrast("#FFFFFF", "#0B1F3A")).toBeGreaterThan(7);
+  it("keeps Air Force blue, gold, and ink pairs above WCAG AA", () => {
+    expect(contrast("#00308F", "#FFFFFF")).toBeGreaterThan(7);
+    expect(contrast("#FFFFFF", "#00308F")).toBeGreaterThan(7);
+    expect(contrast("#FFCD00", "#00308F")).toBeGreaterThan(4.5);
+    expect(contrast("#00308F", "#FFCD00")).toBeGreaterThan(4.5);
+    expect(contrast("#6B4F00", "#FFFFFF")).toBeGreaterThan(4.5);
+    expect(contrast("#6B4F00", "#E4ECF7")).toBeGreaterThan(4.5);
+    expect(contrast("#2C4266", "#E4ECF7")).toBeGreaterThan(4.5);
+    expect(contrast("#FFCD00", "#FFFFFF")).toBeLessThan(3);
+  });
+});
+
+describe("app center stays a separate page", () => {
+  const root = path.resolve(import.meta.dirname, "..");
+  const marketingFiles = [
+    "components/pages/HomePage.tsx",
+    "components/pages/BusinessItPage.tsx",
+    "components/pages/SmartHomePage.tsx",
+    "components/pages/SecurityPage.tsx",
+    "components/pages/ContactPage.tsx",
+    "components/pages/PageIntro.tsx",
+    "components/Footer.tsx",
+    "components/ContactForm.tsx",
+  ];
+
+  it("keeps one header tab and no directory links on the marketing pages", () => {
+    for (const file of marketingFiles) {
+      const text = fs.readFileSync(path.join(root, file), "utf8");
+      expect(text, file).not.toMatch(/app-center|appCenter/);
+    }
+    const header = fs.readFileSync(path.join(root, "components/Header.tsx"), "utf8");
+    expect(header.match(/app-center/g)).toEqual(["app-center"]);
+    expect(en.focus.ai.body).not.toMatch(/ordering demo|App Center|app-center/i);
+    expect(getDictionary("es").focus.ai.body).not.toMatch(/demostración de pedidos|Centro de apps/i);
+    expect(getDictionary("pt-br").focus.ai.body).not.toMatch(/demonstração de pedidos|Central de apps/i);
+    const directory = fs.readFileSync(path.join(root, "components/pages/AppCenterPage.tsx"), "utf8");
+    expect(directory).toContain("allApps");
+    expect(directory).toContain("copy.back");
   });
 });
 

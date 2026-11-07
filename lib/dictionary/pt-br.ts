@@ -90,10 +90,9 @@ const ptBr: Dictionary = {
       copyStatus: "proposed",
       index: "01",
       title: "IA",
-      body: "Ajuda prática com ferramentas de IA para uma casa ou um pequeno negócio, em linguagem clara e limitada ao que você realmente precisa. O trabalho já publicado neste domínio inclui legendas ao vivo em inglês, espanhol e português, notas por voz e uma demonstração de pedidos com IA. A demonstração de pedidos é só uma demonstração: não cobra e não envia pedidos.",
+      body: "Ajuda prática com ferramentas de IA para uma casa ou um pequeno negócio, em linguagem clara e limitada ao que você realmente precisa.",
       note: "Não há calendário de aulas nem preço de um pacote de IA.",
       primary: "Falar com o Freddy",
-      secondary: "Ver as ferramentas",
     },
     smartHome: {
       copyStatus: "live",
@@ -311,6 +310,7 @@ const ptBr: Dictionary = {
     },
   },
   appCenter: {
+    back: "Voltar para a Computing Made Easy",
     kicker: "Feito pelo Freddy",
     title: "Cada cliente merece um lugar na internet.",
     body: "Uma coleção selecionada de sites feitos para negócios reais — de mão de obra e oficinas a marceneiros e vendedores de fruta.",

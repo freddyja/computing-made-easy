@@ -4,10 +4,13 @@ import type { ReactNode } from "react";
 type Variant = "solid" | "ghost" | "light" | "lightGhost";
 
 const variants: Record<Variant, string> = {
-  solid: "bg-navy text-white hover:bg-navy-2",
-  ghost: "border border-navy/20 bg-white text-navy hover:border-navy",
-  light: "bg-white text-navy hover:bg-paper",
-  lightGhost: "border border-white/40 text-white hover:bg-white/10",
+  solid:
+    "bg-gold text-navy hover:bg-gold-deep active:bg-gold-deep focus-visible:outline-navy",
+  ghost:
+    "border-2 border-gold bg-white text-navy hover:bg-gold active:bg-gold-deep",
+  light: "bg-white text-navy hover:bg-gold active:bg-gold-deep",
+  lightGhost:
+    "border-2 border-gold bg-transparent text-gold hover:bg-gold hover:text-navy active:bg-gold-deep active:text-navy",
 };
 
 type Props = {

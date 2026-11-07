@@ -90,10 +90,9 @@ const es: Dictionary = {
       copyStatus: "proposed",
       index: "01",
       title: "IA",
-      body: "Ayuda práctica con herramientas de IA para un hogar o un pequeño negocio, en lenguaje claro y limitada a lo que usted realmente necesita. El trabajo ya publicado en este dominio incluye subtítulos en vivo en inglés, español y portugués, notas por voz y una demostración de pedidos con IA. La demostración de pedidos es solo una demostración: no cobra y no envía pedidos.",
+      body: "Ayuda práctica con herramientas de IA para un hogar o un pequeño negocio, en lenguaje claro y limitada a lo que usted realmente necesita.",
       note: "No hay calendario de clases ni precio de un paquete de IA.",
       primary: "Hablar con Freddy",
-      secondary: "Ver las herramientas",
     },
     smartHome: {
       copyStatus: "live",
@@ -311,6 +310,7 @@ const es: Dictionary = {
     },
   },
   appCenter: {
+    back: "Volver a Computing Made Easy",
     kicker: "Hecho por Freddy",
     title: "Cada cliente merece un lugar en internet.",
     body: "Una colección seleccionada de sitios hechos para negocios reales: desde técnicos de mantenimiento hasta talleres, carpinteros y vendedores de fruta.",

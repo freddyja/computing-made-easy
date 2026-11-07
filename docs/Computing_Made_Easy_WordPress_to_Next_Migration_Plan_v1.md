@@ -45,7 +45,7 @@ Live production on 6 November 2026 is **WordPress on IONOS**, not this repositor
    - `https://party-requests-flax.vercel.app/r`
 4. Apex HTTPS, and the existing `www` → apex 301.
 5. IONOS mail (MX, SPF). Do not touch DNS records to “point the website” until a separate, explicit decision. Changing the A record can also break mail if it is done carelessly. This plan does not change the A record.
-6. The directory `/app-center/` if anything outside the marketing page still depends on the current static hub. The Next page is a directory of the same links. It is not a replacement for the child app folders.
+6. The directory `/app-center/` if anything outside the marketing page still depends on the current static hub. In this Next app, `/app-center` is a standalone directory page reached from the header tab. It is not a replacement for the child app folders.
 
 ## What not to do
 

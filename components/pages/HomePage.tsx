@@ -17,28 +17,28 @@ function focusCopy(d: Dictionary, id: FocusId) {
 export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
   const sections = {
     service: (
-      <section data-section="service" className="tech-grid border-b border-line" data-copy-status={d.hero.copyStatus}>
+      <section data-section="service" className="tech-grid border-b border-gold/40 text-white" data-copy-status={d.hero.copyStatus}>
         <div className="mx-auto grid max-w-6xl items-start gap-8 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.15fr_1.2fr_0.85fr] lg:gap-10 lg:py-20">
           <div className="flag-frame bg-white">
             <Flag title={d.flag.title} />
-            <p className="mt-3 pr-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">{d.flag.caption}</p>
+            <p className="mt-3 pr-4 font-mono text-[10px] uppercase tracking-[0.16em] text-gold-ink">{d.flag.caption}</p>
           </div>
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-electric-deep">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">
               {site.name}
             </p>
-            <h1 className="mt-3 text-4xl font-semibold leading-[1.05] tracking-tight text-navy sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
               <span className="block">{d.hero.line1}</span>
               <span className="mt-2 block">{d.hero.line2.replaceAll("-", "\u2011")}</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy/85">{d.hero.story}</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90">{d.hero.story}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href={`tel:${site.phoneTel}`} variant="ghost">
+              <Button href={`tel:${site.phoneTel}`} variant="lightGhost">
                 {d.hero.call}
               </Button>
               <Button href={publicHref(locale, "contact")}>{d.hero.quote}</Button>
             </div>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">{d.hero.endorsement}</p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/75">{d.hero.endorsement}</p>
           </div>
           <figure className="flag-frame bg-white">
             <Image
@@ -51,7 +51,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
             />
             <figcaption className="mt-3 pr-4">
               <span className="block font-semibold text-navy">{d.hero.portraitCaption}</span>
-              <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-electric-deep">
+              <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-gold-ink">
                 {d.hero.portraitMeta}
               </span>
             </figcaption>
@@ -64,14 +64,16 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
         id={d.credentials.id}
         data-section="credentials"
         data-copy-status={d.credentials.copyStatus}
-        className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20"
+        className="border-y border-gold/50 bg-paper"
         aria-labelledby="credentials-heading"
       >
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <h2 id="credentials-heading" className="text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
           {d.credentials.heading}
         </h2>
         <div className="mt-8">
           <CredentialList d={d} />
+        </div>
         </div>
       </section>
     ),
@@ -79,42 +81,44 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
       <section
         id={d.focus.id}
         data-section="focus"
-        className="border-t border-line bg-white"
+        className="bg-navy text-white"
         aria-labelledby="services-heading"
       >
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <h2 id="services-heading" className="max-w-3xl text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+          <h2 id="services-heading" className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             {d.focus.heading}
           </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{d.focus.lede}</p>
-          <div className="mt-8 flex flex-wrap gap-x-3 gap-y-2 border-y border-line py-4 text-sm font-semibold text-navy" role="list">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">{d.focus.lede}</p>
+          <div className="mt-8 flex flex-wrap gap-x-3 gap-y-2 border-y border-gold/40 py-4 text-sm font-semibold text-gold" role="list">
             {d.trust.map((item) => (
               <span key={item} role="listitem">
                 {item}
               </span>
             ))}
           </div>
-          <div className="mt-4 divide-y divide-line">
+          <div className="mt-4 divide-y divide-white/15">
             {focusIds.map((id) => {
               const copy = focusCopy(d, id);
               const links = focusLinks(locale, id);
               return (
                 <article key={id} className="grid gap-4 py-8 lg:grid-cols-[auto_1fr_auto] lg:gap-8" data-copy-status={copy.copyStatus}>
-                  <p className="font-mono text-sm text-electric-deep">{copy.index}</p>
+                  <p className="font-mono text-sm text-gold">{copy.index}</p>
                   <div>
-                    <h3 className="text-2xl font-semibold tracking-tight text-navy">{copy.title}</h3>
-                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{copy.body}</p>
+                    <h3 className="text-2xl font-semibold tracking-tight text-white">{copy.title}</h3>
+                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80">{copy.body}</p>
                     {"note" in copy && typeof copy.note === "string" && (
-                      <p className="mt-3 text-sm text-navy">{copy.note}</p>
+                      <p className="mt-3 text-sm text-gold">{copy.note}</p>
                     )}
                   </div>
                   <div className="flex flex-col items-start gap-3">
-                    <Link href={links.primary} className="text-sm font-semibold text-navy underline decoration-electric underline-offset-4">
+                    <Link href={links.primary} className="text-sm font-semibold text-gold underline decoration-gold underline-offset-4 hover:text-gold-deep">
                       {copy.primary}
                     </Link>
-                    <Link href={links.secondary} className="text-sm font-semibold text-electric-deep">
-                      {copy.secondary}
-                    </Link>
+                    {"secondary" in copy && links.secondary && (
+                      <Link href={links.secondary} className="text-sm font-semibold text-white hover:text-gold">
+                        {copy.secondary}
+                      </Link>
+                    )}
                   </div>
                 </article>
               );
@@ -124,7 +128,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
       </section>
     ),
     close: (
-      <section data-section="close" className="bg-navy text-white">
+      <section data-section="close" className="bg-navy-2 text-white">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 py-14 sm:px-8 lg:flex-row lg:items-center">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight">{d.close.heading}</h2>

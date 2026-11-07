@@ -11,13 +11,14 @@ export const pages = [
 ] as const;
 export type PageId = (typeof pages)[number];
 
-export const contentPages = [
+export const marketingPages = [
   "business-it",
   "smart-home",
   "security",
   "contact",
-  "app-center",
 ] as const;
+
+export const contentPages = [...marketingPages, "app-center"] as const;
 export type ContentPage = (typeof contentPages)[number];
 
 /** Home narrative, then credentials, then services, then the closing ask. */
@@ -44,6 +45,12 @@ export function isLocale(value: string): value is Locale {
 
 export function isPage(value: string): value is ContentPage {
   return (contentPages as readonly string[]).includes(value);
+}
+
+export type MarketingPage = (typeof marketingPages)[number];
+
+export function isMarketingPage(value: string): value is MarketingPage {
+  return (marketingPages as readonly string[]).includes(value);
 }
 
 export function htmlLang(locale: Locale): "en" | "es" | "pt-BR" {
@@ -84,15 +91,12 @@ export function switchLocale(pathname: string, next: Locale): string {
 export function focusLinks(
   locale: Locale,
   id: FocusId,
-): { primary: string; secondary: string } {
+): { primary: string; secondary?: string } {
   const contact = (interest: string) =>
     `${publicHref(locale, "contact")}?interest=${interest}`;
   switch (id) {
     case "ai":
-      return {
-        primary: contact("ai"),
-        secondary: `${publicHref(locale, "app-center")}#tools`,
-      };
+      return { primary: contact("ai") };
     case "smart-home":
       return {
         primary: publicHref(locale, "smart-home"),

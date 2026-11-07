@@ -4,6 +4,7 @@ import puppeteer from "puppeteer-core";
 
 const base = process.env.BASE_URL || "http://127.0.0.1:3456";
 const outDir = process.env.OUT_DIR || "/opt/cursor/artifacts";
+const shotPrefix = process.env.SHOT_PREFIX || "";
 fs.mkdirSync(outDir, { recursive: true });
 
 const shots = [
@@ -35,7 +36,7 @@ try {
     const page = await browser.newPage();
     await page.setViewport({ width: shot.width, height: shot.height, deviceScaleFactor: 1 });
     const response = await page.goto(`${base}${shot.path}`, { waitUntil: "networkidle0", timeout: 60000 });
-    const file = path.join(outDir, `${shot.name}.png`);
+    const file = path.join(outDir, `${shotPrefix}${shot.name}.png`);
     await page.screenshot({ path: file, fullPage: shot.fullPage });
     const facts = await page.evaluate(() => ({
       lang: document.documentElement.lang,
@@ -60,7 +61,7 @@ try {
     invalid: [...document.querySelectorAll("[aria-invalid='true']")].map((el) => el.getAttribute("name")),
     note: document.querySelector("#mailto-note")?.textContent || "",
   }));
-  const formFile = path.join(outDir, "screenshot_contact_mobile_validation.png");
+  const formFile = path.join(outDir, `${shotPrefix}screenshot_contact_mobile_validation.png`);
   await page.screenshot({ path: formFile, fullPage: true });
   report.checks.push({ name: "form-validation", errors, file: formFile });
 
@@ -72,7 +73,7 @@ try {
   await page.setViewport({ width: 390, height: 844 });
   await page.click('button[aria-controls]');
   await page.waitForSelector("#" + (await page.$eval('button[aria-controls]', (el) => el.getAttribute("aria-controls"))));
-  const menuFile = path.join(outDir, "screenshot_home_mobile_menu.png");
+  const menuFile = path.join(outDir, `${shotPrefix}screenshot_home_mobile_menu.png`);
   await page.screenshot({ path: menuFile });
   const expanded = await page.$eval('button[aria-controls]', (el) => el.getAttribute("aria-expanded"));
   await page.keyboard.press("Escape");
@@ -81,7 +82,7 @@ try {
 
   await page.setViewport({ width: 1440, height: 900 });
   await page.goto(`${base}/es/business-it`, { waitUntil: "networkidle0" });
-  const esBiz = path.join(outDir, "screenshot_business_it_es_desktop.png");
+  const esBiz = path.join(outDir, `${shotPrefix}screenshot_business_it_es_desktop.png`);
   await page.screenshot({ path: esBiz });
   const esFacts = await page.evaluate(() => ({
     lang: document.documentElement.lang,

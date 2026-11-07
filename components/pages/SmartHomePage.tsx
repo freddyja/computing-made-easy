@@ -11,13 +11,13 @@ export function SmartHomePage({ locale, d }: { locale: Locale; d: Dictionary }) 
       <PageIntro kicker={copy.kicker} title={copy.title} lede={copy.lede}>
         <div className="mb-2 flex flex-wrap gap-2">
           {copy.badges.map((badge) => (
-            <span key={badge} className="border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-navy">
+            <span key={badge} className="border border-gold/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-gold">
               {badge}
             </span>
           ))}
         </div>
         <Button href={publicHref(locale, "contact")}>{copy.consult}</Button>
-        <Button href="#packages" variant="ghost">
+        <Button href="#packages" variant="lightGhost">
           {copy.viewPackages}
         </Button>
       </PageIntro>

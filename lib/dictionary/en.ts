@@ -90,10 +90,9 @@ export const en = {
       copyStatus: "proposed",
       index: "01",
       title: "AI",
-      body: "Practical help with AI tools for a home or a small business, in plain language, limited to what you actually need. Work already published on this domain includes live captions in English, Spanish, and Portuguese, voice notes, and an AI ordering demo. The ordering demo is a demo only: it takes no payment and sends no order.",
+      body: "Practical help with AI tools for a home or a small business, in plain language, limited to what you actually need.",
       note: "No class schedule and no AI package price are listed.",
       primary: "Talk with Freddy",
-      secondary: "See the tools",
     },
     smartHome: {
       copyStatus: "live",
@@ -310,6 +309,7 @@ export const en = {
     },
   },
   appCenter: {
+    back: "Back to Computing Made Easy",
     kicker: "Built by Freddy",
     title: "Every client deserves a home online.",
     body: "A curated collection of websites crafted for real businesses — from handymen to auto shops, woodcrafters to fruit vendors.",
