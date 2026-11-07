@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  /* Bridge v3 tokens. Air Force-inspired, not an official service identity. */
+  --navy: #003b71;
+  --navy-2: #002b52;
+  --gold: #d4af37;
+  --gold-deep: #e4c45c;
+  --ink: #0b1f3a;
+  --electric: #d4af37;
+  --electric-deep: #003b71;
+  --paper: #f4f6f8;
+  --line: #d5dde6;
+  --muted: #0b1f3a;
+  --flag-red: #b22234;
+  --background: #f4f6f8;
+  --foreground: #0b1f3a;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-ink: var(--ink);
+  --color-electric: var(--electric);
+  --color-electric-deep: var(--electric-deep);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-flag-red: var(--flag-red);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-source);
+  --font-mono: var(--font-plex);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), "Source Sans 3", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
+}
+
+.on-blue :focus-visible {
+  outline-color: #ffffff;
+}
+
+.btn-gold:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 5px;
+  box-shadow: 0 0 0 2px var(--navy);
+}
+
+::selection {
+  background: var(--navy);
+  color: white;
+}
+
+.hero-layout {
+  display: grid;
+  gap: 32px;
+  grid-template-areas:
+    "identity"
+    "flag"
+    "actions"
+    "portrait";
+}
+
+.hero-flag { grid-area: flag; }
+.hero-identity { grid-area: identity; }
+.hero-actions { grid-area: actions; }
+.hero-portrait { grid-area: portrait; }
+
+@media (min-width: 1024px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 25fr) minmax(0, 45fr) minmax(0, 30fr);
+    grid-template-areas:
+      "flag identity portrait"
+      "flag actions portrait";
+    align-items: start;
+  }
+}
+
+.flag-frame {
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--navy);
+  border-color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
