@@ -49,8 +49,8 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
             <Image
               src="/brand/freddy-profile-hero.jpg"
               alt={d.hero.portraitAlt}
-              width={600}
-              height={600}
+              width={760}
+              height={760}
               priority
               className="h-auto w-full"
             />

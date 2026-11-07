@@ -7,7 +7,7 @@
 
 ## Photo
 
-The hero now uses the owner-selected photograph of Freddy Jara-Almonte. The shipped display file is a square window of the original pixels, aimed at Freddy in the foreground (gray hair, glasses). His wife is not the subject of that window. The face was not generated, retouched, or redrawn. The full oriented original is kept at `public/brand/freddy-profile-source.jpg`. The unused invented placeholder `public/brand/portrait.jpg` is removed.
+The hero uses the owner-selected photograph. The first square was too far right and cut off the left side of Freddy’s face. The replacement window, measured on the 1600×1201 source, is pixels (620, 340) through (1380, 1100). That keeps both sides of his hair, both ears, his glasses, chin, and shoulders in frame, with his wife only partly visible behind him. No pixels were generated or retouched. The full oriented original remains `public/brand/freddy-profile-source.jpg`. The invented placeholder `public/brand/portrait.jpg` stays removed.
 
 The “Placeholder — verify likeness” label is gone in English, Spanish, and Brazilian Portuguese. Alt text names Freddy and says it is a personal photograph, not a military portrait. The caption is his name only.
 
@@ -23,4 +23,4 @@ Hero support lines, quote labels, and the private-business disclaimer are still 
 - `npx tsc --noEmit` — passed as part of `npx next build`
 - `npx eslint .` — no errors
 - `npx next build` — passed
-- Local production screenshots: desktop `v4_home_desktop_final.png` and mobile `v4_home_mobile_final.png`. The hero image is the owner photo, Freddy in the foreground. The placeholder label is absent. Alt text says it is a personal photograph, not a military portrait.
+- Local production screenshots were inspected, not only measured: `v4_home_desktop_final.png` and `v4_home_mobile_final.png`. Both show Freddy’s full head (both sides of his hair, both ears, glasses, chin) and his shoulders. His wife is only partly visible behind him. The placeholder label is absent.

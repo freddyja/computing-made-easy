@@ -38,7 +38,7 @@ export const en = {
     callAria: "Call Freddy at 407-925-2589",
     quote: "Request a free quote",
     portraitAlt:
-      "Freddy Jara-Almonte smiling and wearing glasses. Personal photograph, not a military portrait.",
+      "Freddy Jara-Almonte in the foreground, smiling and wearing glasses, with another person partly visible behind him. Personal photograph, not a military portrait.",
     portraitCaption: "Freddy Jara-Almonte",
   },
   credentials: {
