@@ -38,9 +38,8 @@ const ptBr: Dictionary = {
     callAria: "Ligar para Freddy no 407-925-2589",
     quote: "Solicitar orçamento gratuito",
     portraitAlt:
-      "Imagem provisória. A semelhança não está confirmada. A pessoa prevista é Freddy Jara-Almonte.",
+      "Freddy Jara-Almonte sorrindo e de óculos. Fotografia pessoal, não é um retrato militar.",
     portraitCaption: "Freddy Jara-Almonte",
-    portraitMeta: "Imagem provisória — confirmar semelhança",
   },
   credentials: {
     copyStatus: "owner-confirmed",

@@ -46,14 +46,13 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
             <p className="mt-4 max-w-[60ch] text-base leading-relaxed text-white/90">{d.hero.endorsement}</p>
           </div>
           <figure className="hero-portrait overflow-hidden rounded-lg bg-white text-ink">
-            <p className="bg-ink px-4 py-3 text-base font-semibold text-white">{d.hero.portraitMeta}</p>
             <Image
-              src="/brand/portrait.jpg"
+              src="/brand/freddy-profile-hero.jpg"
               alt={d.hero.portraitAlt}
-              width={720}
-              height={720}
+              width={600}
+              height={600}
               priority
-              className="aspect-square w-full object-cover"
+              className="h-auto w-full"
             />
             <figcaption className="px-4 py-3 text-base font-semibold">{d.hero.portraitCaption}</figcaption>
           </figure>
@@ -155,7 +154,7 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
     url: site.domain,
     telephone: site.phoneTel,
     email: site.email,
-    image: `${site.domain}/brand/portrait.jpg`,
+    image: `${site.domain}/brand/freddy-profile-hero.jpg`,
     founder: {
       "@type": "Person",
       name: site.owner,

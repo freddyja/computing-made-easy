@@ -246,7 +246,14 @@ describe("flag geometry and contrast", () => {
     expect(contrast("#003B71", "#F4F6F8")).toBeGreaterThan(7);
     expect(contrast("#FFFFFF", "#D4AF37")).toBeLessThan(3);
     expect(en.hero.line2).toBe("Freddy Jara-Almonte");
-    expect(en.hero.portraitMeta).toMatch(/Placeholder/i);
+    expect(en.hero.portraitAlt).toMatch(/not a military portrait/i);
+    expect(en.hero.portraitAlt).not.toMatch(/placeholder/i);
+    expect(getDictionary("es").hero.portraitAlt).toMatch(/no es un retrato militar/i);
+    expect(getDictionary("pt-br").hero.portraitAlt).toMatch(/não é um retrato militar/i);
+    for (const locale of ["en", "es", "pt-br"] as const) {
+      const hero = JSON.stringify(getDictionary(locale).hero);
+      expect(hero).not.toMatch(/Placeholder|provisional|provisória/i);
+    }
   });
 });
 

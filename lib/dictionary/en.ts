@@ -38,9 +38,8 @@ export const en = {
     callAria: "Call Freddy at 407-925-2589",
     quote: "Request a free quote",
     portraitAlt:
-      "Placeholder image. Likeness is not confirmed. The intended subject is Freddy Jara-Almonte.",
+      "Freddy Jara-Almonte smiling and wearing glasses. Personal photograph, not a military portrait.",
     portraitCaption: "Freddy Jara-Almonte",
-    portraitMeta: "Placeholder — verify likeness",
   },
   credentials: {
     copyStatus: "owner-confirmed",
