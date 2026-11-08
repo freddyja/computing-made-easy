@@ -11,6 +11,7 @@ import {
   focusIds,
   focusLinks,
   homeSectionOrder,
+  menuPages,
   pages,
   publicHref,
   resolveLocaleRequest,
@@ -287,19 +288,43 @@ describe("app center stays a separate page", () => {
     "components/ContactForm.tsx",
   ];
 
-  it("keeps one header tab and no directory links on the marketing pages", () => {
+  it("keeps App Center off the site menu and leaves the direct page in place", () => {
     for (const file of marketingFiles) {
       const text = fs.readFileSync(path.join(root, file), "utf8");
       expect(text, file).not.toMatch(/app-center|appCenter/);
     }
     const header = fs.readFileSync(path.join(root, "components/Header.tsx"), "utf8");
-    expect(header.match(/app-center/g)).toEqual(["app-center"]);
+    expect(header).not.toMatch(/app-center|appCenter/);
+    expect(menuPages).toEqual(["business-it", "smart-home", "security"]);
+    expect(pages).toContain("app-center");
+    for (const locale of ["en", "es", "pt-br"] as const) {
+      const nav = getDictionary(locale).nav;
+      expect([nav.businessIt, nav.smartHome, nav.security]).not.toContain(nav.appCenter);
+    }
     expect(en.focus.ai.body).not.toMatch(/ordering demo|App Center|app-center/i);
     expect(getDictionary("es").focus.ai.body).not.toMatch(/demostración de pedidos|Centro de apps/i);
     expect(getDictionary("pt-br").focus.ai.body).not.toMatch(/demonstração de pedidos|Central de apps/i);
     const directory = fs.readFileSync(path.join(root, "components/pages/AppCenterPage.tsx"), "utf8");
     expect(directory).toContain("allApps");
     expect(directory).toContain("copy.back");
+    const apache = fs.readFileSync(path.join(root, "deploy/apache-marketing.example.conf"), "utf8");
+    const merged = fs.readFileSync(path.join(root, "deploy/clickandbuilds-ComputingMadeEasy.htaccess"), "utf8");
+    const original = fs.readFileSync(
+      path.join(root, "deploy/clickandbuilds-ComputingMadeEasy.htaccess.precutover"),
+      "utf8",
+    );
+    const marketing = merged.indexOf("^(business-it|smart-home|security|contact|app-center)");
+    const firstCatchall = merged.indexOf("RewriteRule . /index.php [L]");
+    expect(marketing).toBeGreaterThan(0);
+    expect(firstCatchall).toBeGreaterThan(marketing);
+    expect(merged.indexOf("# BEGIN WordPress")).toBeGreaterThan(firstCatchall);
+    expect(merged).toContain("AddHandler x-mapp-php5.5  .php");
+    expect(merged).toContain("# START IONOS Performance Caching");
+    expect(apache).not.toMatch(/RewriteRule \^\(anibal-handyman/);
+    expect(merged).not.toMatch(/RewriteRule \^\(anibal-handyman/);
+    const insertAt = original.indexOf("<IfModule mod_rewrite.c>");
+    expect(merged.endsWith(original.slice(insertAt))).toBe(true);
+    expect(merged.slice(0, insertAt)).toBe(original.slice(0, insertAt));
   });
 });
 

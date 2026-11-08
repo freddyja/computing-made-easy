@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 import {
   isHomePath,
   locales,
+  menuPages,
   publicHref,
   switchLocale,
   type Locale,
@@ -17,12 +18,15 @@ import { Button } from "./Button";
 import { Flag } from "./Flag";
 import { Logo } from "./Logo";
 
-const links: { page: PageId; key: "businessIt" | "smartHome" | "security" | "appCenter" }[] = [
-  { page: "business-it", key: "businessIt" },
-  { page: "smart-home", key: "smartHome" },
-  { page: "security", key: "security" },
-  { page: "app-center", key: "appCenter" },
-];
+const menuKey = {
+  "business-it": "businessIt",
+  "smart-home": "smartHome",
+  security: "security",
+} as const;
+
+const links: { page: PageId; key: "businessIt" | "smartHome" | "security" }[] = menuPages.map(
+  (page) => ({ page, key: menuKey[page] }),
+);
 
 export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
   const pathname = usePathname() || "/";

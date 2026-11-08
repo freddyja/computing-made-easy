@@ -20,6 +20,9 @@ export const marketingPages = [
   "contact",
 ] as const;
 
+/** Site menu only. App Center stays a direct URL and is not a menu item. */
+export const menuPages = ["business-it", "smart-home", "security"] as const;
+
 export const contentPages = [...marketingPages, "app-center"] as const;
 export type ContentPage = (typeof contentPages)[number];
 

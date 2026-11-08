@@ -2,7 +2,7 @@
 
 English only. The website remains English, Spanish, and Brazilian Portuguese. This file is a review and readiness note. It is not a cutover, and nothing in it was applied to computingmadeeasy.org.
 
-Do not use `4227e42`, `df8f714`, or `900ccae` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that contains the recipient `contactus@computingmadeeasy.org`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+Do not use `4227e42`, `df8f714`, `900ccae`, or `2b2ecf8` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that removes App Center from the site menu and inserts the v5 rules before the first live WordPress catch-all. The form recipient remains `contactus@computingmadeeasy.org`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
 
 Production hold: do not publish, deploy, merge, change DNS, change email, or remove WordPress.
 
@@ -14,7 +14,7 @@ Air Force blue and gold now continue below the hero on the home page, Business I
 - Ice section background `#E7EEF5` behind white cards. Gold `#D4AF37` is used for rules, buttons, and small labels on blue. Gold buttons keep ink text `#0B1F3A`.
 - Small labels on white or ice use dark gold `#6B4F00`, which stays above a 4.5:1 contrast ratio on white, `#E7EEF5`, and `#FFF8E6`.
 - Service accents are a left or top edge only: gold for credentials and AI, sky `#7EB6E0` for smart home and business IT cards, Old Glory red `#B22234` as a thin top edge on security cards. The flag SVG is unchanged: 50 stars, union blue `#3C3B6E`.
-- App Center stays a separate directory. The header tab is still the only marketing-site link. Footer, home, service, and contact pages do not promote it.
+- App Center is not in the site menu in English, Spanish, or Portuguese, on desktop or in the mobile menu. The direct address `/app-center` still opens the directory, and its 32 links stay there. Footer, home, service, and contact pages do not promote it.
 
 The hero photograph was not regenerated. `public/brand/freddy-profile-hero.jpg` is still the 760×760 pixel window from `(620, 340)` to `(1380, 1100)` of `public/brand/freddy-profile-source.jpg` (1600×1201). The page shows that file at full width with no second `object-position` crop. Desktop and mobile hero screenshots were inspected: both sides of the hair, both ears, glasses, chin, and shoulders are in frame. His wife remains partly visible behind him on the left. Alt text still says it is a personal photograph, not a military portrait.
 
@@ -102,17 +102,15 @@ Live site, from the read-only check supplied for this pass: IONOS Apache, PHP 8.
 - the same six pages under `out/es/` and `out/pt-br/`
 - `out/contact-submit.php`, `out/_next/`, `out/brand/`
 
-`output: "export"` turns off `proxy.ts`. Apache has to do that job. `deploy/apache-marketing.example.conf` is an example, not an enabled vhost:
+`output: "export"` turns off `proxy.ts`. Apache has to do that job. The live document root is `/clickandbuilds/ComputingMadeEasy`. Its `.htaccess` has an unmarked WordPress catch-all before the IONOS cache and before `# BEGIN WordPress`. The merged file `deploy/clickandbuilds-ComputingMadeEasy.htaccess` inserts the v5 rules immediately before that first catch-all and leaves every following byte unchanged, including `AddHandler x-mapp-php5.5  .php`. That handler was not edited. The account is PHP 8.3; after upload, check which PHP version actually runs `contact-submit.php`.
 
-1. Redirect `/en` and `/en/...` to the unprefixed English paths with a temporary 302, so a rollback is not cached as a permanent redirect.
-2. Serve `/` from `/cme-static/en/index.html`. The document root is itself a directory, so this rule has to come before the “real directory” rule or WordPress keeps the home page.
-3. Leave real files and directories alone. That is what keeps the 26 child-app trees, WordPress, `/_next`, `/brand`, and `contact-submit.php` in place.
-4. Rewrite only `business-it`, `smart-home`, `security`, `contact`, and `app-center` to `/cme-static/en/...`.
-5. Rewrite `/es` and `/pt-br` to the matching export folders.
+The rules name only `/`, `/business-it`, `/smart-home`, `/security`, `/contact`, `/app-center`, `/es`, `/pt-br`, and `/en`. They do not use a pass-through `[L]` for the 26 app names. Only `biblical-pharmacy` is a physical directory. The other 25 still need the existing catch-all so WordPress can serve them. Those names are not marketing routes, so they fall through as they do now. `wp-admin`, `wp-content`, and `wp-includes` are real directories and stay on that path too.
 
-Copy `out/en`, `out/es`, and `out/pt-br` into `DOCUMENT_ROOT/cme-static/`, and copy `out/_next`, `out/brand`, and `out/contact-submit.php` to the document root. Do not `rsync --delete` the document root. Do not delete WordPress until the marketing URLs and all 26 app URLs have been checked. Rollback is commenting out that rewrite block. WordPress `index.php` serves the home page again. MX, SPF, the mailbox, and the existing `www` → apex 301 stay as they are.
+A physical `/app-center` directory was not in the root listing. The marketing rule is still before the catch-all, so a later folder of that name cannot hide the v5 page. Files under an old folder are not deleted.
 
-`/anibal-handyman/` and the other 25 app paths are not in the rewrite list. `lib/preserved-apps.ts` also tells the Next proxy to skip those trees, including subpaths, if a request ever reaches Next. On this production server those paths 404, which is expected: the apps are not in this repo. They must keep being served by Apache from their current directories. A Next process must not be the only front controller for the vhost.
+Copy `cme-static/`, `_next/`, `brand/`, and `contact-submit.php` into the document root. Do not replace `index.php`. Replace `.htaccess` only with the merged file. Rollback is putting the pre-cutover `.htaccess` back. `index.php` then serves `/` again. MX, SPF, and the existing `www` → apex 301 stay as they are.
+
+`lib/preserved-apps.ts` tells the Next proxy to skip those trees if a request reaches Next. On Apache they stay with WordPress or, for `biblical-pharmacy`, the real directory.
 
 Node is not required for this option. The pages are static files. Mail is PHP.
 
