@@ -2,7 +2,11 @@
 
 English only. The website remains English, Spanish, and Brazilian Portuguese. This file is a review and readiness note. It is not a cutover, and nothing in it was applied to computingmadeeasy.org.
 
-Do not use `4227e42`, `df8f714`, `900ccae`, or `2b2ecf8` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that removes App Center from the site menu and inserts the v5 rules before the first live WordPress catch-all. The form recipient remains `contactus@computingmadeeasy.org`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+Do not use `4227e42`, `df8f714`, `900ccae`, `2b2ecf8`, or `26dd080` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that maps the Next prefetch files before the first WordPress catch-all. The form recipient remains `contactus@computingmadeeasy.org`. App Center stays off the site menu. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+
+## Prefetch 404s
+
+Live proof on 8 Nov 2026: `GET /__next._tree.txt` and `GET /business-it/__next._tree.txt` return HTTP 404, `content-type: text/html`, `x-powered-by: PHP/8.3.36`, and a WordPress “Page not found” document. The same files already exist and return HTTP 200 `text/plain` at `/cme-static/en/__next._tree.txt` and `/cme-static/en/business-it/__next._tree.txt`. The body begins with the Next flight payload (`:HL[` or a segment record), not HTML. The rewrite only matched the page URL, so `/business-it/__next._tree.txt` was not a real file and the first WordPress catch-all sent it to `index.php`. The fix adds rules for those `__next.*.txt` files only. It does not add a stop rule for the 26 app URLs.
 
 Production hold: do not publish, deploy, merge, change DNS, change email, or remove WordPress.
 
@@ -134,7 +138,7 @@ IONOS Deploy Now does not provide this runtime. A Node host would still need the
 
 ## Checks run
 
-- `npx vitest run` — 20 passed
+- `npx vitest run` — 21 passed
 - `npx tsc --noEmit` — passed
 - `npx eslint .` — no errors
 - `npx next build` — passed

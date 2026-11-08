@@ -105,17 +105,20 @@
 
 # BEGIN Computing Made Easy v5
 # Remove this block to restore the pre-cutover rules. index.php is not part of this change.
-# These rules run before the first WordPress catch-all. They do not stop rewrite
-# processing for the 26 app URLs; those still fall through to WordPress.
+# Prefetch files are mapped to cme-static. App URLs still reach the catch-all below.
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
     RewriteRule ^en/?$ / [R=302,L]
     RewriteRule ^en/(.+)$ /$1 [R=302,L]
     RewriteRule ^$ /cme-static/en/index.html [L]
+    RewriteRule ^(__next\.[^/]+\.txt)$ /cme-static/en/$1 [L]
     RewriteRule ^(business-it|smart-home|security|contact|app-center)/?$ /cme-static/en/$1/index.html [L]
+    RewriteRule ^(business-it|smart-home|security|contact|app-center)/(__next\.[^/]+\.txt)$ /cme-static/en/$1/$2 [L]
     RewriteRule ^(es|pt-br)/?$ /cme-static/$1/index.html [L]
+    RewriteRule ^(es|pt-br)/(__next\.[^/]+\.txt)$ /cme-static/$1/$2 [L]
     RewriteRule ^(es|pt-br)/([A-Za-z0-9-]+)/?$ /cme-static/$1/$2/index.html [L]
+    RewriteRule ^(es|pt-br)/(business-it|smart-home|security|contact|app-center)/(__next\.[^/]+\.txt)$ /cme-static/$1/$2/$3 [L]
 </IfModule>
 # END Computing Made Easy v5
 
