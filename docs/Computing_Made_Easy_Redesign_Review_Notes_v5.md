@@ -2,7 +2,7 @@
 
 English only. The website remains English, Spanish, and Brazilian Portuguese. This file is a review and readiness note. It is not a cutover, and nothing in it was applied to computingmadeeasy.org.
 
-Head: the commit on `feat/nextjs-redesign` that contains this file. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+Implementation commit: `4227e42` on `feat/nextjs-redesign`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
 
 No deploy, merge, DNS change, email change, WordPress removal, or live mail send was performed.
 
