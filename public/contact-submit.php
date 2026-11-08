@@ -25,11 +25,11 @@ function cme_clean(string $value, int $limit): string
     return $value;
 }
 
-/** Form deliveries go here. Not the public business address, and not taken from the visitor. */
-const CME_FORM_RECIPIENT = 'fjarmonte@gmail.com';
+/** Form deliveries go here. Not taken from the visitor. Not the public freddy@ address. */
+const CME_FORM_RECIPIENT = 'contactus@computingmadeeasy.org';
 
-/** Envelope sender when CME_SMTP_FROM is unset. Public pages still show the business address separately. */
-const CME_FORM_SENDER = 'freddy@computingmadeeasy.org';
+/** Envelope sender when CME_SMTP_FROM is unset. Public pages still show freddy@. */
+const CME_FORM_SENDER = 'contactus@computingmadeeasy.org';
 
 function cme_config(): array
 {

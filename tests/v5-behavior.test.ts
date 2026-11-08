@@ -65,22 +65,30 @@ describe("contact delivery states", () => {
     const php = fs.readFileSync(path.join(root, "public/contact-submit.php"), "utf8");
     expect(php).toContain("'delivered' => true");
     expect(php).toContain("unconfigured");
-    expect(php).toContain("const CME_FORM_RECIPIENT = 'fjarmonte@gmail.com'");
-    expect(php).toContain("const CME_FORM_SENDER = 'freddy@computingmadeeasy.org'");
+    expect(php).toContain("const CME_FORM_RECIPIENT = 'contactus@computingmadeeasy.org'");
+    expect(php).toContain("const CME_FORM_SENDER = 'contactus@computingmadeeasy.org'");
     expect(php).toContain("\$cfg['to'] = CME_FORM_RECIPIENT");
     expect(php).toContain("Reply-To:");
     expect(php).toContain("unset(\$payload['to']");
     expect(php).not.toContain("CME_SMTP_TO");
     expect(php).not.toMatch(/password\s*=>\s*'[^']+'/);
     const example = fs.readFileSync(path.join(root, "deploy/cme-mail.example.php"), "utf8");
-    expect(example).toContain("fjarmonte@gmail.com");
-    expect(example).toContain("'from' => 'freddy@computingmadeeasy.org'");
+    expect(example).toContain("'host' => 'smtp.ionos.com'");
+    expect(example).toContain("'port' => 587");
+    expect(example).toContain("'encryption' => 'starttls'");
+    expect(example).toContain("'user' => 'contactus@computingmadeeasy.org'");
+    expect(example).toContain("'from' => 'contactus@computingmadeeasy.org'");
+    expect(example).toContain("'password' => ''");
     expect(example).not.toContain("'to'");
     expect(example).not.toMatch(/password'\s*=>\s*'[^']+'/);
+    expect(example).not.toContain("computermadeeasy.org");
     expect(site.email).toBe("freddy@computingmadeeasy.org");
+    expect(site.domain).toBe("https://computingmadeeasy.org");
     for (const locale of ["en", "es", "pt-br"] as const) {
-      expect(JSON.stringify(getDictionary(locale))).not.toContain("fjarmonte@gmail.com");
-      expect(JSON.stringify(getDictionary(locale))).toContain("freddy@computingmadeeasy.org");
+      const text = JSON.stringify(getDictionary(locale));
+      expect(text).not.toContain("contactus@");
+      expect(text).not.toContain("computermadeeasy.org");
+      expect(text).toContain("freddy@computingmadeeasy.org");
     }
   });
 });

@@ -2,7 +2,7 @@
 
 English only. The website remains English, Spanish, and Brazilian Portuguese. This file is a review and readiness note. It is not a cutover, and nothing in it was applied to computingmadeeasy.org.
 
-Do not use `4227e42` or `df8f714` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that contains this sentence. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+Do not use `4227e42`, `df8f714`, or `900ccae` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that contains the recipient `contactus@computingmadeeasy.org`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
 
 Production hold: do not publish, deploy, merge, change DNS, change email, or remove WordPress.
 
@@ -60,12 +60,13 @@ Recipient change is in the source. It is not live on computingmadeeasy.org.
 | Item | Current value |
 | --- | --- |
 | Endpoint | `POST /contact-submit.php` |
-| Fixed recipient | `fjarmonte@gmail.com` (`CME_FORM_RECIPIENT`). Set in code after config loads. A `to`, `cc`, `bcc`, `recipient`, or `from` field in the visitor request is discarded. A `to` key in the private config file is discarded. |
-| Default envelope sender | `freddy@computingmadeeasy.org` (`CME_FORM_SENDER`) |
+| Fixed recipient | `contactus@computingmadeeasy.org` (`CME_FORM_RECIPIENT`). Set in code after config loads. A `to`, `cc`, `bcc`, `recipient`, or `from` field in the visitor request is discarded. A `to` key in the private config file is discarded. |
+| Example sender | `contactus@computingmadeeasy.org` (`from` in `deploy/cme-mail.example.php`, and `CME_FORM_SENDER` when `CME_SMTP_FROM` is unset). |
 | Reply-To | The visitor’s email only |
-| Public site email | Still `freddy@computingmadeeasy.org` on the pages, footer, and `mailto:` links. It was not changed. |
-| Authenticated SMTP | Not configured. `CME_SMTP_USER` and `CME_SMTP_PASSWORD` are empty. The example host is `smtp.example.com`. No password is in git. |
-| Real SMTP delivery test | None. No message was accepted by an SMTP server. No inbox receipt was checked. PHP is not installed in this workspace, so the script was not executed here. |
+| Public site email and domain | Still `freddy@computingmadeeasy.org` and `computingmadeeasy.org` on the pages, footer, and `mailto:` links. |
+| Example non-secret SMTP settings | Written in `deploy/cme-mail.example.php`: host `smtp.ionos.com`, port `587`, encryption `starttls`, username `contactus@computingmadeeasy.org`, From the same address. Password is an empty string. |
+| Deployed runtime | Not configured and not published. The example file is not installed on the server. No `CME_SMTP_PASSWORD` is set. The endpoint cannot authenticate and must not report success. |
+| Real SMTP delivery test | None. No message was accepted by an SMTP server. No inbox was checked. |
 | Unconfigured result | HTTP 503 `{ "ok": false, "code": "unconfigured" }` when host, user, or password is missing. The page says the website cannot send yet and that nothing was sent, then offers phone and email. |
 | `next start` | Does not run PHP. A browser submit there shows that the message could not be sent. That is not delivery. |
 
@@ -76,12 +77,18 @@ Names the parent must fill on the server, with no values in this repo:
 - `CME_SMTP_PASSWORD` (required secret)
 - `CME_SMTP_PORT` (optional, default `587`)
 - `CME_SMTP_ENCRYPTION` (optional, default `starttls`; `ssl` is the other accepted value)
-- `CME_SMTP_FROM` (optional, default `freddy@computingmadeeasy.org`)
+- `CME_SMTP_FROM` (optional, default `contactus@computingmadeeasy.org`)
 - `CME_MAIL_CONFIG` (optional path to a private PHP file; default is `../private/cme-mail.php` when the script is in the document root)
 
-`CME_SMTP_TO` is not read. The recipient stays `fjarmonte@gmail.com`.
+`CME_SMTP_TO` is not read. The recipient stays `contactus@computingmadeeasy.org`.
 
-To validate a real send later, on a copy that is not this production cutover: set those keys outside the web root, POST one message, require HTTP 200 with `delivered: true`, and look in the fjarmonte@gmail.com inbox. The Reply-To should be the address typed in the form. The public mailto address should still be freddy@computingmadeeasy.org. That test has not been done.
+### Example settings versus a live send
+
+`deploy/cme-mail.example.php` holds the non-secret mailbox settings: `smtp.ionos.com`, port 587, STARTTLS, username `contactus@computingmadeeasy.org`, and From that same address. `password` is present and empty. That file is an example. It is not loaded by the site, and it is not installed on IONOS.
+
+The running endpoint stays unconfigured until a private copy of that file, or `CME_SMTP_PASSWORD`, is supplied outside the repo. The parent is arranging a secure way to provide the mailbox password. It is separate from the IONOS panel login. This package does not contain a password. No send was attempted. The public site is not published.
+
+A later check, only on a path the parent approves, is: set the password outside git, POST one message, require HTTP 200 with `delivered: true`, and look in `contactus@computingmadeeasy.org`. Reply-To should be the visitor’s address. The public mailto address should still be `freddy@computingmadeeasy.org`.
 
 ## Hosting options
 
@@ -137,18 +144,21 @@ IONOS Deploy Now does not provide this runtime. A Node host would still need the
 
 ## Screenshots inspected
 
-These full-page files were captured after scrolling the loaded page, then opened and checked for card text. They replace the earlier captures that showed empty blocks.
+Each full page was scrolled from top to bottom, returned to scrollY 0, and checked so the header sits above the name and photo. The header was left in normal document flow for the capture so the sticky bar is not painted across the hero. Cards stay visible. No review section is present.
 
 - `/workspace/Computing_Made_Easy_Redesign_v5_home_desktop.png`
 - `/workspace/Computing_Made_Easy_Redesign_v5_home_mobile.png`
-- `/opt/cursor/artifacts/v5_home_desktop.png` (same desktop capture)
-- `/opt/cursor/artifacts/v5_home_mobile.png` (same mobile capture)
-- `/opt/cursor/artifacts/v5_home_tablet.png`
-- `/opt/cursor/artifacts/v5_home_es.png`
-- `/opt/cursor/artifacts/v5_home_pt.png`
-- `/opt/cursor/artifacts/v5_hero_desktop.png`
-- `/opt/cursor/artifacts/v5_hero_mobile.png`
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_es_desktop.png`
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_es_mobile.png`
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_pt_desktop.png`
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_pt_mobile.png`
+- `/opt/cursor/artifacts/v5_home_desktop.png`
+- `/opt/cursor/artifacts/v5_home_mobile.png`
+- `/opt/cursor/artifacts/v5_home_es_desktop.png`
+- `/opt/cursor/artifacts/v5_home_es_mobile.png`
+- `/opt/cursor/artifacts/v5_home_pt_desktop.png`
+- `/opt/cursor/artifacts/v5_home_pt_mobile.png`
 
-Desktop and mobile both show the credential cards, four service cards, Since 2004, 2500+, and the questions. The face is inside the hero frame. No review block is on the page.
+English, Spanish, and Portuguese desktop and mobile tops show the header, then the name, with the face fully in the photo. Credential cards are filled.
 
 Package: `Computing_Made_Easy_Redesign_v5.zip`. It excludes `.git`, `node_modules`, `.next`, `out`, and env files.

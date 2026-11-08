@@ -1,18 +1,22 @@
 <?php
 /**
- * Example only. Copy to a path outside the web root, for example ../private/cme-mail.php,
- * or set CME_MAIL_CONFIG to that file. Leave the real password off this example and out of git.
- * An empty user or password keeps contact-submit.php in the unconfigured state.
+ * Example only. Copy outside the web root, or point CME_MAIL_CONFIG at the copy.
+ * Leave password empty. Do not put a mailbox password or an IONOS panel login in
+ * this file, in git, or in a zip. An empty password keeps contact-submit.php
+ * unconfigured, so this example does not send mail.
  *
- * The script always delivers to fjarmonte@gmail.com. A `to` value in this file is ignored.
- * The visitor's address is Reply-To only. freddy@computingmadeeasy.org remains the public
- * business address and the default envelope sender.
+ * The script always delivers to contactus@computingmadeeasy.org. A `to` value
+ * here is ignored. The visitor address is Reply-To only. Pages still show
+ * freddy@computingmadeeasy.org as the public business email.
+ *
+ * Host, port, encryption, username, and From below are the non-secret settings
+ * for that existing mailbox. They are not a deployed server config.
  */
 return [
-    'host' => 'smtp.example.com',
+    'host' => 'smtp.ionos.com',
     'port' => 587,
     'encryption' => 'starttls',
-    'user' => '',
+    'user' => 'contactus@computingmadeeasy.org',
     'password' => '',
-    'from' => 'freddy@computingmadeeasy.org',
+    'from' => 'contactus@computingmadeeasy.org',
 ];
