@@ -6,6 +6,7 @@ import { buildMailto, parseInterest, validateContact } from "../lib/contact";
 import { getDictionary } from "../lib/dictionary";
 import { en } from "../lib/dictionary/en";
 import { FLAG_COLORS, FLAG_VIEW, flagModel, starPoints } from "../lib/flag";
+import { isPreservedAppPath, preservedAppPaths } from "../lib/preserved-apps";
 import {
   focusIds,
   focusLinks,
@@ -104,6 +105,15 @@ describe("routes and locales", () => {
     expect(resolveLocaleRequest("/en/contact")).toEqual({ action: "redirect", to: "/contact" });
     expect(resolveLocaleRequest("/es/security")).toEqual({ action: "next", locale: "es" });
     expect(resolveLocaleRequest("/pt-br")).toEqual({ action: "next", locale: "pt-br" });
+    expect(preservedAppPaths).toHaveLength(26);
+    for (const app of preservedAppPaths) {
+      expect(isPreservedAppPath(`/${app}`)).toBe(true);
+      expect(isPreservedAppPath(`/${app}/`)).toBe(true);
+      expect(isPreservedAppPath(`/${app}/index.html`)).toBe(true);
+      expect(resolveLocaleRequest(`/${app}/`)).toEqual({ action: "skip" });
+      expect(resolveLocaleRequest(`/${app}/schedule`)).toEqual({ action: "skip" });
+    }
+    expect(resolveLocaleRequest("/contact-submit.php")).toEqual({ action: "skip" });
   });
 
   it("switches language without dropping the page", () => {
@@ -113,7 +123,15 @@ describe("routes and locales", () => {
   });
 
   it("leads home with service, then credentials, then AI and the other work", () => {
-    expect(homeSectionOrder).toEqual(["service", "credentials", "focus", "close"]);
+    expect(homeSectionOrder).toEqual([
+      "service",
+      "credentials",
+      "focus",
+      "record",
+      "questions",
+      "examples",
+      "close",
+    ]);
     expect(focusIds).toEqual(["ai", "smart-home", "business-it", "security"]);
     expect(focusLinks("en", "ai").primary).toBe("/contact?interest=ai");
     expect(focusLinks("en", "ai").secondary).toBeUndefined();

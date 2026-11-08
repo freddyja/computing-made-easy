@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Server mail config. Never commit a filled-in copy.
+/private/
+cme-mail.php
+
 # vercel
 .vercel
 

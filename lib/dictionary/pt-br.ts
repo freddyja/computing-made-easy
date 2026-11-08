@@ -27,6 +27,13 @@ const ptBr: Dictionary = {
     contact: "Contato",
     explore: "Explorar",
   },
+  sectionNav: {
+    label: "Nesta página",
+    credentials: "Credenciais",
+    services: "Serviços",
+    record: "Dados",
+    questions: "Perguntas",
+  },
   hero: {
     copyStatus: "proposed",
     line1: "Militar reformado da Força Aérea dos Estados Unidos",
@@ -125,6 +132,70 @@ const ptBr: Dictionary = {
     body: "Fale com Freddy Jara-Almonte — ajuda local, de um veterano, para TI, casas inteligentes e segurança.",
     call: "407-925-2589",
     quote: "Orçamento gratuito",
+  },
+  stats: {
+    copyStatus: "live",
+    id: "record",
+    heading: "Dados publicados",
+    lede: "Dois números já publicados deste negócio. 2004 é o ano de início, não uma contagem de tempo.",
+    sinceLabel: "Em atividade",
+    sinceText: "Desde 2004",
+    clientsLabel: "Clientes",
+    clientsText: "2500+",
+    clientsDetail: "Número de clientes já publicado no site atual.",
+  },
+  faq: {
+    id: "questions",
+    heading: "Perguntas",
+    items: [
+      {
+        q: "Este formulário envia a minha mensagem?",
+        a: "Somente quando o e-mail do servidor deste site está configurado. Se não estiver, o formulário diz que não pode enviar, e nada é enviado. Ligue para 407-925-2589 ou escreva para freddy@computingmadeeasy.org. Abrir o seu aplicativo de e-mail não envia a mensagem até que você a envie.",
+      },
+      {
+        q: "Quanto custam os pacotes de casa inteligente?",
+        a: "As faixas iniciais publicadas são $1,500–$2,000, $2,500–$3,500 e $4,000–$5,500. O preço final depende da casa e do escopo sob medida. Confirme antes de orçar.",
+      },
+      {
+        q: "Há um preço fixo para TI empresarial, segurança ou IA?",
+        a: "Não. A TI empresarial é definida depois de uma breve conversa de descoberta. Câmeras e sensores são definidos depois de entender o espaço e os objetivos. Não há calendário de aulas de IA nem preço de pacote de IA.",
+      },
+      {
+        q: "Quem é o dono deste negócio?",
+        a: "Freddy Jara-Almonte, retirado da Força Aérea dos Estados Unidos. É um negócio privado. Não é afiliado nem endossado pelo governo dos Estados Unidos nem pela Força Aérea.",
+      },
+      {
+        q: "Onde vocês atendem?",
+        a: "Spring Hill, Brooksville e a Flórida Central, a partir de 1720 Alameda Dr, Spring Hill FL. Em atividade desde 2004.",
+      },
+    ],
+  },
+  testimonials: {
+    copyStatus: "design-review",
+    id: "examples",
+    heading: "Apenas slides de exemplo",
+    notice:
+      "Apenas para revisão do design. Estes slides não são avaliações de clientes. O site atual não tem depoimentos verificados para mostrar.",
+    prev: "Exemplo anterior",
+    next: "Próximo exemplo",
+    position: "Exemplo {current} de {total}",
+    slides: [
+      {
+        kicker: "Não é uma avaliação de cliente",
+        quote: "Exemplo de layout: uma frase curta entraria aqui depois que o Freddy aprovar um comentário real.",
+        attribution: "Sem nome — marcador",
+      },
+      {
+        kicker: "Não é uma avaliação de cliente",
+        quote: "Exemplo de layout: um segundo comentário aprovado entraria aqui. Nada neste slide é uma citação de um cliente.",
+        attribution: "Sem nome — marcador",
+      },
+      {
+        kicker: "Não é uma avaliação de cliente",
+        quote: "Exemplo de layout: um terceiro comentário aprovado entraria aqui. Não trate este texto como uma nota nem como uma avaliação.",
+        attribution: "Sem nome — marcador",
+      },
+    ],
   },
   callBar: "Ligar para 407-925-2589",
   business: {
@@ -289,11 +360,17 @@ const ptBr: Dictionary = {
     interest: "Interesse de serviço",
     message: "Mensagem",
     messagePlaceholder: "Conte com o que você precisa de ajuda.",
-    submit: "Abrir o e-mail para enviar",
+    submit: "Enviar mensagem",
+    submitting: "Enviando…",
     explanation:
-      "Enviar abre o seu aplicativo de e-mail com esta mensagem endereçada a freddy@computingmadeeasy.org. Este site não envia nada. A mensagem só sai se você a enviar pelo seu programa de e-mail.",
+      "Este formulário envia pelo e-mail do servidor do site somente quando esse e-mail está configurado. Se não estiver configurado, nada é enviado. A mensagem de sucesso aparece somente depois que o servidor aceita a mensagem. O link de e-mail abre o seu aplicativo de e-mail e não envia até que você o envie.",
+    success: "O Freddy recebeu a sua mensagem.",
+    unconfigured: "Este site ainda não pode enviar a mensagem. Nada foi enviado.",
+    unavailable: "A mensagem não pôde ser enviada. Nada foi enviado.",
+    fallbackEmail: "Escrever para o Freddy",
+    honeypot: "Site da empresa",
     status:
-      "Abrindo o seu aplicativo de e-mail. Esta mensagem não foi enviada. Envie-a pelo seu programa de e-mail para falar com o Freddy. Se nada abrir, escreva para",
+      "Esse link abre o seu aplicativo de e-mail. A mensagem não é enviada até que você a envie pelo seu programa de e-mail. Você também pode escrever para",
     errors: {
       name: "Informe o seu nome.",
       email: "Informe um e-mail válido.",
@@ -368,7 +445,7 @@ const ptBr: Dictionary = {
       copyStatus: "proposed",
       title: "Contato",
       description:
-        "Ligue para 407-925-2589 ou escreva para freddy@computingmadeeasy.org. 1720 Alameda Dr, Spring Hill FL. O formulário abre o seu e-mail; ele não envia sozinho.",
+        "Ligue para 407-925-2589 ou escreva para freddy@computingmadeeasy.org. 1720 Alameda Dr, Spring Hill FL. O formulário envia somente quando o e-mail do servidor está configurado.",
     },
     "app-center": {
       copyStatus: "live",

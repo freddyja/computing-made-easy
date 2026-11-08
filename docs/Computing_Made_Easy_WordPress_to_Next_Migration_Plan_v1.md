@@ -2,6 +2,8 @@
 
 **Status: plan only. Nothing in this document has been executed.**
 
+v5 readiness (8 November 2026) is in `Computing_Made_Easy_Redesign_Review_Notes_v5.md`. That note supersedes the “do not add a server-side form” line below. The form can post to `contact-submit.php` on the existing Apache/PHP host. It stays unconfigured, and does not report success, until private SMTP settings exist. This plan still does not change DNS, email, WordPress, or the child apps.
+
 No DNS change, no email change, no hosting change, no WordPress change, no publish, no GitHub Pages, no Vercel/Netlify/Cloudflare attach, no domain purchase, and no preview deployment.
 
 Live production on 6 November 2026 is **WordPress on IONOS**, not this repository. Apex `https://computingmadeeasy.org/` is canonical. `www` 301s to the apex. Mail stays on IONOS (`mx00` / `mx01.ionos.com`). The contact form in this redesign still opens a `mailto:` to `freddy@computingmadeeasy.org`. It does not need a new form host.

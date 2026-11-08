@@ -42,14 +42,11 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string; page: string }>;
-  searchParams: Promise<{ interest?: string }>;
 }) {
   const { locale, page } = await params;
   if (!isLocale(locale) || !isMarketingPage(page)) notFound();
-  const query = await searchParams;
   const View = views[page];
-  return <View locale={locale} d={getDictionary(locale)} interest={query.interest} />;
+  return <View locale={locale} d={getDictionary(locale)} />;
 }

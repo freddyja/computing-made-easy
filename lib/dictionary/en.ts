@@ -27,6 +27,13 @@ export const en = {
     contact: "Contact",
     explore: "Explore",
   },
+  sectionNav: {
+    label: "On this page",
+    credentials: "Credentials",
+    services: "Services",
+    record: "Record",
+    questions: "Questions",
+  },
   hero: {
     copyStatus: "proposed",
     line1: "Retired United States Air Force",
@@ -125,6 +132,70 @@ export const en = {
     body: "Talk with Freddy Jara-Almonte — local, veteran-owned help for IT, smart homes, and security.",
     call: "407-925-2589",
     quote: "Free quote",
+  },
+  stats: {
+    copyStatus: "live",
+    id: "record",
+    heading: "On the record",
+    lede: "Two figures already published for this business. 2004 is the founding year, not a count of years.",
+    sinceLabel: "In business",
+    sinceText: "Since 2004",
+    clientsLabel: "Clients",
+    clientsText: "2500+",
+    clientsDetail: "Client figure already published on the live site.",
+  },
+  faq: {
+    id: "questions",
+    heading: "Questions",
+    items: [
+      {
+        q: "Does this form send my message?",
+        a: "Only when this website’s server mail is configured. If it is not, the form says it cannot send, and nothing is sent. Call 407-925-2589 or email freddy@computingmadeeasy.org. Opening your email app does not send the message until you send it.",
+      },
+      {
+        q: "What do the smart home packages cost?",
+        a: "The published starting ranges are $1,500–$2,000, $2,500–$3,500, and $4,000–$5,500. The final price depends on the home and the custom scope. Confirm before quoting.",
+      },
+      {
+        q: "Is there a fixed price for business IT, security, or AI?",
+        a: "No. Business IT is scoped after a short discovery conversation. Cameras and sensors are scoped after the layout and goals are understood. No AI class schedule and no AI package price are listed.",
+      },
+      {
+        q: "Who owns this business?",
+        a: "Freddy Jara-Almonte, Retired United States Air Force. This is a private business. It is not affiliated with or endorsed by the U.S. government or Air Force.",
+      },
+      {
+        q: "Where do you work?",
+        a: "Spring Hill, Brooksville, and Central Florida, from 1720 Alameda Dr, Spring Hill FL. In business since 2004.",
+      },
+    ],
+  },
+  testimonials: {
+    copyStatus: "design-review",
+    id: "examples",
+    heading: "Example slides only",
+    notice:
+      "Design review only. These slides are not customer reviews. The live site has no verified testimonials to display.",
+    prev: "Previous example",
+    next: "Next example",
+    position: "Example {current} of {total}",
+    slides: [
+      {
+        kicker: "Not a customer review",
+        quote: "Example layout: a short sentence would appear here after Freddy approves a real comment.",
+        attribution: "No name — placeholder",
+      },
+      {
+        kicker: "Not a customer review",
+        quote: "Example layout: a second approved comment would appear here. Nothing on this slide is a quotation from a client.",
+        attribution: "No name — placeholder",
+      },
+      {
+        kicker: "Not a customer review",
+        quote: "Example layout: a third approved comment would appear here. Do not treat this text as a rating or a review.",
+        attribution: "No name — placeholder",
+      },
+    ],
   },
   callBar: "Call 407-925-2589",
   business: {
@@ -288,11 +359,17 @@ export const en = {
     interest: "Service interest",
     message: "Message",
     messagePlaceholder: "Tell us what you need help with.",
-    submit: "Open email to send",
+    submit: "Send message",
+    submitting: "Sending…",
     explanation:
-      "Submit opens your email app with this message addressed to freddy@computingmadeeasy.org. Nothing is sent from this website. The message is sent only if you send it from your email program.",
+      "This form sends through the website’s server mail only when that mail is configured. If it is not configured, nothing is sent. A success message appears only after the server accepts the message. The email link opens your email app and does not send until you send it.",
+    success: "Freddy received your message.",
+    unconfigured: "This website cannot send the message yet. Nothing was sent.",
+    unavailable: "The message could not be sent. Nothing was sent.",
+    fallbackEmail: "Email Freddy instead",
+    honeypot: "Company website",
     status:
-      "Opening your email app. This message has not been sent. Send it from your email program to reach Freddy. If nothing opens, email",
+      "That link opens your email app. The message is not sent until you send it from your email program. You can also write to",
     errors: {
       name: "Enter your name.",
       email: "Enter a valid email address.",
@@ -366,7 +443,7 @@ export const en = {
       copyStatus: "proposed",
       title: "Contact",
       description:
-        "Call 407-925-2589 or email freddy@computingmadeeasy.org. 1720 Alameda Dr, Spring Hill FL. The form opens your email app; it does not send by itself.",
+        "Call 407-925-2589 or email freddy@computingmadeeasy.org. 1720 Alameda Dr, Spring Hill FL. The form sends only when server mail is configured.",
     },
     "app-center": {
       copyStatus: "live",

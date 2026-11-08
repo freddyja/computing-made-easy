@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Source_Sans_3 } from "next/font/google";
-import { headers } from "next/headers";
-import { htmlLang, isLocale, LOCALE_HEADER } from "@/lib/routes";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -28,16 +26,13 @@ export const metadata: Metadata = {
   applicationName: site.name,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerList = await headers();
-  const raw = headerList.get(LOCALE_HEADER) ?? "en";
-  const lang = isLocale(raw) ? htmlLang(raw) : "en";
   return (
-    <html lang={lang} className={`${sans.variable} ${mono.variable} h-full`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper font-sans text-navy antialiased">
         {children}
       </body>

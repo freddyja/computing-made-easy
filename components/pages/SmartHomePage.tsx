@@ -21,25 +21,31 @@ export function SmartHomePage({ locale, d }: { locale: Locale; d: Dictionary }) 
           {copy.viewPackages}
         </Button>
       </PageIntro>
-      <section id="packages" className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-electric-deep">{copy.packagesKicker}</p>
+      <section id="packages" className="scroll-target bg-[#E7EEF5]">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6B4F00]">{copy.packagesKicker}</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy">{copy.packagesTitle}</h2>
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {smartHomePackages.map((pkg) => {
             const text = copy.packages[pkg.id];
             return (
-              <article key={pkg.id} className={`flex flex-col border bg-white p-6 ${pkg.popular ? "border-navy" : "border-line"}`}>
+              <article
+                key={pkg.id}
+                className={`cme-card cme-reveal flex flex-col border p-6 ${
+                  pkg.popular ? "border-gold bg-navy text-white" : "border-line border-t-4 border-t-[#7EB6E0] bg-white text-navy"
+                }`}
+              >
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="text-xl font-semibold text-navy">{text.name}</h3>
+                  <h3 className="text-xl font-semibold">{text.name}</h3>
                   {pkg.popular && (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-electric-deep">{copy.popular}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">{copy.popular}</span>
                   )}
                 </div>
-                <p className="mt-1 text-sm text-muted">{text.subtitle}</p>
-                <p className="mt-5 font-mono text-2xl font-medium text-navy">{pkg.price}</p>
-                <ul className="mt-5 flex-1 space-y-2 text-sm leading-relaxed text-navy">
+                <p className={`mt-1 text-sm ${pkg.popular ? "text-white/80" : "text-ink"}`}>{text.subtitle}</p>
+                <p className={`mt-5 font-mono text-2xl font-medium ${pkg.popular ? "text-gold" : "text-navy"}`}>{pkg.price}</p>
+                <ul className="mt-5 flex-1 space-y-2 text-sm leading-relaxed">
                   {text.features.map((feature) => (
-                    <li key={feature} className="border-t border-line pt-2">
+                    <li key={feature} className={`border-t pt-2 ${pkg.popular ? "border-white/15" : "border-line"}`}>
                       {feature}
                     </li>
                   ))}
@@ -51,17 +57,18 @@ export function SmartHomePage({ locale, d }: { locale: Locale; d: Dictionary }) 
             );
           })}
         </div>
-        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-muted">{copy.disclaimer}</p>
+        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink">{copy.disclaimer}</p>
+        </div>
       </section>
-      <section className="border-t border-line bg-paper">
+      <section className="border-t border-white/10 bg-[#062C52]">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-electric-deep">{copy.whyKicker}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy">{copy.whyTitle}</h2>
-          <div className="mt-8 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{copy.whyKicker}</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">{copy.whyTitle}</h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {copy.why.map((item) => (
-              <article key={item.title} className="bg-white p-5">
-                <h3 className="font-semibold text-navy">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
+              <article key={item.title} className="cme-card cme-reveal border border-white/15 border-t-4 border-t-gold bg-navy p-5 text-white">
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">{item.body}</p>
               </article>
             ))}
           </div>

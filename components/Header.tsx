@@ -32,6 +32,37 @@ export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
   const home = isHomePath(pathname);
+  const sectionLinks = [
+    { id: d.credentials.id, label: d.sectionNav.credentials },
+    { id: d.focus.id, label: d.sectionNav.services },
+    { id: d.stats.id, label: d.sectionNav.record },
+    { id: d.faq.id, label: d.sectionNav.questions },
+  ];
+
+  useEffect(() => {
+    if (!home || !("IntersectionObserver" in window)) return;
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"));
+    const sections = links
+      .map((link) => document.getElementById(link.dataset.sectionLink || ""))
+      .filter((node): node is HTMLElement => Boolean(node));
+    if (!sections.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const id = visible.target.id;
+        for (const link of links) {
+          if (link.dataset.sectionLink === id) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        }
+      },
+      { rootMargin: "-20% 0px -55% 0px", threshold: [0.15, 0.4] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [home, pathname]);
 
   function closeMenu(restoreFocus = false) {
     setOpenPath(null);
@@ -146,6 +177,22 @@ export function Header({ locale, d }: { locale: Locale; d: Dictionary }) {
             <LanguageSwitcher locale={locale} pathname={pathname} d={d} />
           </div>
         </div>
+      )}
+      {home && (
+        <nav aria-label={d.sectionNav.label} className="border-t border-white/10 bg-[#001E3C]">
+          <div className="mx-auto flex max-w-[1200px] gap-1 overflow-x-auto px-5 py-2 sm:px-6">
+            {sectionLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                data-section-link={link.id}
+                className="shrink-0 px-3 py-2 text-sm font-semibold text-white hover:text-gold aria-[current=true]:text-gold aria-[current=true]:underline aria-[current=true]:decoration-2 aria-[current=true]:underline-offset-8"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </nav>
       )}
       {!home && (
         <div className="border-t border-gold/30 bg-navy-2">

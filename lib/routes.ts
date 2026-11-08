@@ -1,3 +1,5 @@
+import { isPreservedAppPath } from "./preserved-apps";
+
 export const locales = ["en", "es", "pt-br"] as const;
 export type Locale = (typeof locales)[number];
 
@@ -21,11 +23,14 @@ export const marketingPages = [
 export const contentPages = [...marketingPages, "app-center"] as const;
 export type ContentPage = (typeof contentPages)[number];
 
-/** Home narrative, then credentials, then services, then the closing ask. */
+/** Home narrative, then credentials, services, published figures, questions, example slides, close. */
 export const homeSectionOrder = [
   "service",
   "credentials",
   "focus",
+  "record",
+  "questions",
+  "examples",
   "close",
 ] as const;
 
@@ -148,6 +153,7 @@ export function resolveLocaleRequest(pathname: string): LocaleResolution {
   }
   const path = normalize(pathname);
   if (/\.[a-zA-Z0-9]+$/.test(path)) return { action: "skip" };
+  if (isPreservedAppPath(path)) return { action: "skip" };
 
   if (path === "/en") return { action: "redirect", to: "/" };
   if (path.startsWith("/en/")) {
