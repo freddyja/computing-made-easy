@@ -2,15 +2,15 @@
 
 English only. The website remains English, Spanish, and Brazilian Portuguese. This file is a review and readiness note. It is not a cutover, and nothing in it was applied to computingmadeeasy.org.
 
-Implementation commit: `4227e42` on `feat/nextjs-redesign`. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
+Do not use `4227e42` or `df8f714` as the source of this package. Those commits are earlier. This revision is the commit on `feat/nextjs-redesign` that contains this sentence. Pull request: https://github.com/freddyja/computing-made-easy/pull/1
 
-No deploy, merge, DNS change, email change, WordPress removal, or live mail send was performed.
+Production hold: do not publish, deploy, merge, change DNS, change email, or remove WordPress.
 
 ## What changed
 
 Air Force blue and gold now continue below the hero on the home page, Business IT, Smart Home, Security, Contact, and the standalone App Center, in all three locales.
 
-- Header `#002B52`. Hero and main blue bands `#003B71`, with a deeper band `#062C52` for credentials, process, and the example-slide section.
+- Header `#002B52`. Hero and main blue bands `#003B71`, with a deeper band `#062C52` for credentials and the business-IT process band.
 - Ice section background `#E7EEF5` behind white cards. Gold `#D4AF37` is used for rules, buttons, and small labels on blue. Gold buttons keep ink text `#0B1F3A`.
 - Small labels on white or ice use dark gold `#6B4F00`, which stays above a 4.5:1 contrast ratio on white, `#E7EEF5`, and `#FFF8E6`.
 - Service accents are a left or top edge only: gold for credentials and AI, sky `#7EB6E0` for smart home and business IT cards, Old Glory red `#B22234` as a thin top edge on security cards. The flag SVG is unchanged: 50 stars, union blue `#3C3B6E`.
@@ -26,16 +26,13 @@ Shared card treatment, no animation library.
 | --- | --- | --- |
 | Hover lift | 4px, 240ms ease, with shadow | Actual cards, and only for a fine pointer that can hover |
 | Border / shadow | same 240ms transition | Same cards |
-| Below-fold reveal | opacity and 12px translate, 520ms ease, once | Cards under the hero |
 | Count-up | 900ms ease-out | “Since 2004” counts from 2000 to 2004. “2500+” counts from 0 to 2500 |
 
-The hero, including the photograph, does not move or zoom. Static cards have no `tabindex` and no button role. Links and buttons keep a gold focus ring. Touch screens do not depend on hover.
+Cards are not faded out while waiting to scroll. An earlier capture hid below-fold cards at opacity 0, which left empty colored blocks under Credentials, services, the record, and Questions. That hide rule is gone. The card text is in the HTML. With JavaScript off, with reduced motion, or if hydration fails, the cards stay visible. Hover still lifts only when motion is allowed and the pointer can hover.
 
-`prefers-reduced-motion: reduce` removes transitions, animation, and the lift. The reveal class is not added, so nothing starts hidden. Count-up does not run. The published strings “Since 2004” and “2500+” are in the HTML. A production-browser check with reduced motion confirmed the motion class was absent, hidden cards were 0, transforms were `none`, and the visible figure was “Since 2004”.
+The hero photograph does not move or zoom. Static cards have no `tabindex` and no button role. “2500+” is the figure already published on the live homepage and in the content inventory. It was not independently audited.
 
-Without JavaScript, or without `IntersectionObserver`, cards stay at opacity 1. `@media (scripting: none)` repeats that. With motion allowed, a production check found 18 below-fold cards hidden before scrolling and 0 hidden after scrolling to the bottom.
-
-Screenshots do not show the motion. The checks above were run in headless Chrome against `next start`.
+The full-page screenshots below were taken after the page had been scrolled from top to bottom, then inspected. Credential cards, the four service cards, “Since 2004”, “2500+”, and the question list are visible on both desktop and mobile. There is no review section.
 
 ## Other additions
 
@@ -43,20 +40,48 @@ Screenshots do not show the motion. The checks above were run in headless Chrome
 - Hero background is a blue gradient mesh behind the content. It does not sit on top of the photograph.
 - FAQ accordion uses real service and contact facts: form delivery, the three smart-home ranges with the confirm-before-quoting line, no fixed business IT / security / AI price, the private-business disclaimer, and the Spring Hill address with “Since 2004”. Buttons use `aria-expanded` and `aria-controls`. A production click moved the second question from collapsed to expanded.
 - Count-up uses only the published founding year 2004 and the published “2500+” client figure. It does not invent a count of years.
-- Example slider: manual Previous / Next only, no autoplay. Every locale says these slides are not customer reviews. The live site still has no verified testimonials. Real quotes are needed before this section can show customers. A production click moved the slide from “Example 1 of 3” to “Example 2 of 3”.
+- The review slider is removed in English, Spanish, and Portuguese. There is no placeholder, no example slide, and no nav anchor for reviews. Do not put design examples or unverified Google text back in.
 
 ## Contact form
 
 There is no existing mail provider in this repo. The form now posts JSON to `/contact-submit.php`.
 
-- Success text (“Freddy received your message.”) renders only when the response is `{ "ok": true, "delivered": true }`.
+- Success text is “Your message was sent.” in English, “Su mensaje fue enviado.” in Spanish, and “Sua mensagem foi enviada.” in Portuguese. It appears only when the server returns `{ "ok": true, "delivered": true }`, which means the SMTP server accepted the message. It does not mean the inbox was opened or a read receipt came back.
 - Empty required fields show the existing validation errors and do not submit. A production click on an empty form showed “Check the highlighted fields.”
 - A filled production submit, against `next start`, showed “The message could not be sent. Nothing was sent.” plus the email and phone fallback. `next start` does not execute PHP, and the POST returned HTTP 500 with the PHP source rather than JSON. Nothing was sent. This was not a delivery test.
 - On Apache, the same file returns HTTP 503 `{ "ok": false, "code": "unconfigured" }` until SMTP settings exist. The form then says “This website cannot send the message yet. Nothing was sent.”
 - The email link still opens the visitor’s mail app. That link is not a success state. The note says the message is not sent until the visitor sends it.
 - Honeypot field `company_website`. Server validation, a 5-submission / 10-minute limit per IP, and newline stripping are in the PHP. Unit tests cover the success, unconfigured, and honeypot branches with a mock transport. Those tests do not prove live delivery.
 
-SMTP settings are read from `CME_SMTP_HOST`, `CME_SMTP_PORT`, `CME_SMTP_USER`, `CME_SMTP_PASSWORD`, `CME_SMTP_FROM`, `CME_SMTP_TO`, and `CME_SMTP_ENCRYPTION` (`starttls` or `ssl`), or from a PHP file outside the web root named by `CME_MAIL_CONFIG` (default `../private/cme-mail.php` when the script sits in the document root). `deploy/cme-mail.example.php` has empty credentials on purpose. No password is in git. A real send still needs a separate approval and a filled-in server config.
+### Contact configuration, as of this revision
+
+Recipient change is in the source. It is not live on computingmadeeasy.org.
+
+| Item | Current value |
+| --- | --- |
+| Endpoint | `POST /contact-submit.php` |
+| Fixed recipient | `fjarmonte@gmail.com` (`CME_FORM_RECIPIENT`). Set in code after config loads. A `to`, `cc`, `bcc`, `recipient`, or `from` field in the visitor request is discarded. A `to` key in the private config file is discarded. |
+| Default envelope sender | `freddy@computingmadeeasy.org` (`CME_FORM_SENDER`) |
+| Reply-To | The visitor’s email only |
+| Public site email | Still `freddy@computingmadeeasy.org` on the pages, footer, and `mailto:` links. It was not changed. |
+| Authenticated SMTP | Not configured. `CME_SMTP_USER` and `CME_SMTP_PASSWORD` are empty. The example host is `smtp.example.com`. No password is in git. |
+| Real SMTP delivery test | None. No message was accepted by an SMTP server. No inbox receipt was checked. PHP is not installed in this workspace, so the script was not executed here. |
+| Unconfigured result | HTTP 503 `{ "ok": false, "code": "unconfigured" }` when host, user, or password is missing. The page says the website cannot send yet and that nothing was sent, then offers phone and email. |
+| `next start` | Does not run PHP. A browser submit there shows that the message could not be sent. That is not delivery. |
+
+Names the parent must fill on the server, with no values in this repo:
+
+- `CME_SMTP_HOST` (required)
+- `CME_SMTP_USER` (required)
+- `CME_SMTP_PASSWORD` (required secret)
+- `CME_SMTP_PORT` (optional, default `587`)
+- `CME_SMTP_ENCRYPTION` (optional, default `starttls`; `ssl` is the other accepted value)
+- `CME_SMTP_FROM` (optional, default `freddy@computingmadeeasy.org`)
+- `CME_MAIL_CONFIG` (optional path to a private PHP file; default is `../private/cme-mail.php` when the script is in the document root)
+
+`CME_SMTP_TO` is not read. The recipient stays `fjarmonte@gmail.com`.
+
+To validate a real send later, on a copy that is not this production cutover: set those keys outside the web root, POST one message, require HTTP 200 with `delivered: true`, and look in the fjarmonte@gmail.com inbox. The Reply-To should be the address typed in the form. The public mailto address should still be freddy@computingmadeeasy.org. That test has not been done.
 
 ## Hosting options
 
@@ -93,21 +118,37 @@ IONOS Deploy Now does not provide this runtime. A Node host would still need the
 ### Blockers before any cutover
 
 - The parent is still checking the IONOS contract, whether custom Apache rewrites are allowed, whether authenticated SMTP is allowed, and whether a backup exists. No change was made from here.
-- SMTP is not configured. The form will not report success until it is, and a real delivery test needs a separate approval.
-- Verified testimonials do not exist. The slider is labeled as design-review examples.
+- SMTP is not configured. No delivery test has run. Success wording does not claim the message was read.
+- The review section is removed. Do not restore example slides.
 - `?interest=` is read in the browser, so the static pages can still preselect Smart Home, Business IT, Security, or AI.
 - The document element starts as `lang="en"`. Each page wraps its content in the right language, and a small script updates the document element after load. With JavaScript off, the document element stays `en`. That is not a reason to require Node.
 - getgloballisting.com is only an external App Center link. It was not changed.
 - No paid signup, no Vercel project, no Cloudflare zone, no DNS edit.
 
+`npm run export` rewrites the document element after the static build: `out/en` is `lang="en"`, `out/es` is `lang="es"`, and `out/pt-br` is `lang="pt-BR"`. Those files were checked, including `out/es/index.html` and `out/pt-br/index.html`. The language is in the HTML, so it does not wait for JavaScript. On `next start`, a small script still sets the same language after load because one root layout serves every locale.
+
 ## Checks run
 
-- `npx vitest run` — 19 passed (13 preservation, 6 v5 behavior)
+- `npx vitest run` — 20 passed
 - `npx tsc --noEmit` — passed
 - `npx eslint .` — no errors
 - `npx next build` — passed
-- `npm run export` (`CME_STATIC_EXPORT=1 next build`) — passed, with the expected notice that static export disables middleware
-- Headless Chrome against `next start` on port 3470: empty-form validation, filled-form non-success, FAQ toggle, slider step, reduced-motion figures, and reveal-after-scroll
-- Desktop, mobile, and tablet home screenshots, plus Business IT, Smart Home, Security, Contact, App Center, and Spanish and Portuguese home screenshots, were written under `/opt/cursor/artifacts/`. The desktop and mobile hero crops were looked at. The face is inside the frame on both.
+- `npm run export` — passed, then the language script checked six exported HTML files
+
+## Screenshots inspected
+
+These full-page files were captured after scrolling the loaded page, then opened and checked for card text. They replace the earlier captures that showed empty blocks.
+
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_desktop.png`
+- `/workspace/Computing_Made_Easy_Redesign_v5_home_mobile.png`
+- `/opt/cursor/artifacts/v5_home_desktop.png` (same desktop capture)
+- `/opt/cursor/artifacts/v5_home_mobile.png` (same mobile capture)
+- `/opt/cursor/artifacts/v5_home_tablet.png`
+- `/opt/cursor/artifacts/v5_home_es.png`
+- `/opt/cursor/artifacts/v5_home_pt.png`
+- `/opt/cursor/artifacts/v5_hero_desktop.png`
+- `/opt/cursor/artifacts/v5_hero_mobile.png`
+
+Desktop and mobile both show the credential cards, four service cards, Since 2004, 2500+, and the questions. The face is inside the hero frame. No review block is on the page.
 
 Package: `Computing_Made_Easy_Redesign_v5.zip`. It excludes `.git`, `node_modules`, `.next`, `out`, and env files.

@@ -129,7 +129,6 @@ describe("routes and locales", () => {
       "focus",
       "record",
       "questions",
-      "examples",
       "close",
     ]);
     expect(focusIds).toEqual(["ai", "smart-home", "business-it", "security"]);

@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "export": "CME_STATIC_EXPORT=1 next build"
+    "export": "CME_STATIC_EXPORT=1 next build && node --experimental-strip-types scripts/set-export-lang.ts"
   },
   "dependencies": {
     "next": "16.3.6",

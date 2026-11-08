@@ -23,14 +23,13 @@ export const marketingPages = [
 export const contentPages = [...marketingPages, "app-center"] as const;
 export type ContentPage = (typeof contentPages)[number];
 
-/** Home narrative, then credentials, services, published figures, questions, example slides, close. */
+/** Home narrative, then credentials, services, published figures, questions, close. */
 export const homeSectionOrder = [
   "service",
   "credentials",
   "focus",
   "record",
   "questions",
-  "examples",
   "close",
 ] as const;
 

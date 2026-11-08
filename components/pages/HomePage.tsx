@@ -5,7 +5,6 @@ import { CredentialList } from "@/components/CredentialList";
 import { FaqList } from "@/components/FaqList";
 import { Flag } from "@/components/Flag";
 import { Button } from "@/components/Button";
-import { TestimonialSlider } from "@/components/TestimonialSlider";
 import type { Dictionary } from "@/lib/dictionary";
 import { focusIds, focusLinks, homeSectionOrder, publicHref, type FocusId, type Locale } from "@/lib/routes";
 import { site } from "@/lib/site";
@@ -177,22 +176,6 @@ export function HomePage({ locale, d }: { locale: Locale; d: Dictionary }) {
             {d.faq.heading}
           </h2>
           <FaqList items={d.faq.items} />
-        </div>
-      </section>
-    ),
-    examples: (
-      <section
-        id={d.testimonials.id}
-        data-section="examples"
-        data-copy-status={d.testimonials.copyStatus}
-        className="scroll-target on-blue bg-[#062C52]"
-        aria-labelledby="examples-heading"
-      >
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <h2 id="examples-heading" className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {d.testimonials.heading}
-          </h2>
-          <TestimonialSlider copy={d.testimonials} />
         </div>
       </section>
     ),

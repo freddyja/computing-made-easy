@@ -170,33 +170,6 @@ const es: Dictionary = {
       },
     ],
   },
-  testimonials: {
-    copyStatus: "design-review",
-    id: "examples",
-    heading: "Solo diapositivas de ejemplo",
-    notice:
-      "Solo para revisión del diseño. Estas diapositivas no son reseñas de clientes. El sitio actual no tiene testimonios verificados para mostrar.",
-    prev: "Ejemplo anterior",
-    next: "Ejemplo siguiente",
-    position: "Ejemplo {current} de {total}",
-    slides: [
-      {
-        kicker: "No es una reseña de un cliente",
-        quote: "Ejemplo de diseño: aquí iría una frase breve después de que Freddy apruebe un comentario real.",
-        attribution: "Sin nombre — marcador de posición",
-      },
-      {
-        kicker: "No es una reseña de un cliente",
-        quote: "Ejemplo de diseño: aquí iría un segundo comentario aprobado. Nada en esta diapositiva es una cita de un cliente.",
-        attribution: "Sin nombre — marcador de posición",
-      },
-      {
-        kicker: "No es una reseña de un cliente",
-        quote: "Ejemplo de diseño: aquí iría un tercer comentario aprobado. No trate este texto como una calificación ni como una reseña.",
-        attribution: "Sin nombre — marcador de posición",
-      },
-    ],
-  },
   callBar: "Llamar al 407-925-2589",
   business: {
     kicker: "TI para negocios",
@@ -364,7 +337,7 @@ const es: Dictionary = {
     submitting: "Enviando…",
     explanation:
       "Este formulario envía por el correo del servidor del sitio solo cuando ese correo está configurado. Si no está configurado, no se envía nada. El mensaje de éxito aparece solo después de que el servidor acepta el mensaje. El enlace de correo abre su aplicación de correo y no envía hasta que usted lo envíe.",
-    success: "Freddy recibió su mensaje.",
+    success: "Su mensaje fue enviado.",
     unconfigured: "Este sitio todavía no puede enviar el mensaje. No se envió nada.",
     unavailable: "No se pudo enviar el mensaje. No se envió nada.",
     fallbackEmail: "Escribir a Freddy",

@@ -25,6 +25,12 @@ function cme_clean(string $value, int $limit): string
     return $value;
 }
 
+/** Form deliveries go here. Not the public business address, and not taken from the visitor. */
+const CME_FORM_RECIPIENT = 'fjarmonte@gmail.com';
+
+/** Envelope sender when CME_SMTP_FROM is unset. Public pages still show the business address separately. */
+const CME_FORM_SENDER = 'freddy@computingmadeeasy.org';
+
 function cme_config(): array
 {
     $cfg = [
@@ -32,28 +38,33 @@ function cme_config(): array
         'port' => (int) (getenv('CME_SMTP_PORT') ?: 587),
         'user' => getenv('CME_SMTP_USER') ?: '',
         'password' => getenv('CME_SMTP_PASSWORD') ?: '',
-        'from' => getenv('CME_SMTP_FROM') ?: '',
-        'to' => getenv('CME_SMTP_TO') ?: '',
+        'from' => getenv('CME_SMTP_FROM') ?: CME_FORM_SENDER,
         'encryption' => getenv('CME_SMTP_ENCRYPTION') ?: 'starttls',
     ];
     $path = getenv('CME_MAIL_CONFIG') ?: (dirname(__DIR__) . '/private/cme-mail.php');
     if (is_file($path)) {
         $loaded = include $path;
         if (is_array($loaded)) {
+            unset($loaded['to'], $loaded['recipient'], $loaded['cc'], $loaded['bcc']);
             $cfg = array_merge($cfg, $loaded);
         }
     }
+    if (trim((string) $cfg['from']) === '') {
+        $cfg['from'] = CME_FORM_SENDER;
+    }
+    $cfg['to'] = CME_FORM_RECIPIENT;
     return $cfg;
 }
 
 function cme_configured(array $cfg): bool
 {
-    foreach (['host', 'user', 'password', 'from', 'to'] as $key) {
+    foreach (['host', 'user', 'password', 'from'] as $key) {
         if (!isset($cfg[$key]) || trim((string) $cfg[$key]) === '') {
             return false;
         }
     }
-    return in_array((string) $cfg['encryption'], ['starttls', 'ssl'], true);
+    return $cfg['to'] === CME_FORM_RECIPIENT
+        && in_array((string) $cfg['encryption'], ['starttls', 'ssl'], true);
 }
 
 function cme_limited(string $ip): bool
@@ -182,6 +193,7 @@ $payload = json_decode($raw, true);
 if (!is_array($payload)) {
     $payload = $_POST;
 }
+unset($payload['to'], $payload['recipient'], $payload['cc'], $payload['bcc'], $payload['from']);
 
 $honeypot = trim((string) ($payload['company_website'] ?? ''));
 if ($honeypot !== '') {

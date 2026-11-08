@@ -2,7 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { getDictionary } from "../lib/dictionary";
+import { exportHtmlLang, setDocumentLang } from "../lib/export-lang";
 import { motionEnabled, motionTiming } from "../lib/motion";
+import { site } from "../lib/site";
 import { interpretSubmitResponse, submitContact } from "../lib/submit";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -63,7 +65,23 @@ describe("contact delivery states", () => {
     const php = fs.readFileSync(path.join(root, "public/contact-submit.php"), "utf8");
     expect(php).toContain("'delivered' => true");
     expect(php).toContain("unconfigured");
+    expect(php).toContain("const CME_FORM_RECIPIENT = 'fjarmonte@gmail.com'");
+    expect(php).toContain("const CME_FORM_SENDER = 'freddy@computingmadeeasy.org'");
+    expect(php).toContain("\$cfg['to'] = CME_FORM_RECIPIENT");
+    expect(php).toContain("Reply-To:");
+    expect(php).toContain("unset(\$payload['to']");
+    expect(php).not.toContain("CME_SMTP_TO");
     expect(php).not.toMatch(/password\s*=>\s*'[^']+'/);
+    const example = fs.readFileSync(path.join(root, "deploy/cme-mail.example.php"), "utf8");
+    expect(example).toContain("fjarmonte@gmail.com");
+    expect(example).toContain("'from' => 'freddy@computingmadeeasy.org'");
+    expect(example).not.toContain("'to'");
+    expect(example).not.toMatch(/password'\s*=>\s*'[^']+'/);
+    expect(site.email).toBe("freddy@computingmadeeasy.org");
+    for (const locale of ["en", "es", "pt-br"] as const) {
+      expect(JSON.stringify(getDictionary(locale))).not.toContain("fjarmonte@gmail.com");
+      expect(JSON.stringify(getDictionary(locale))).toContain("freddy@computingmadeeasy.org");
+    }
   });
 });
 
@@ -79,27 +97,36 @@ describe("motion and readable figures", () => {
     expect(css).toContain("prefers-reduced-motion: reduce");
     expect(css).toContain("scripting: none");
     expect(css).toContain("translateY(-4px)");
-    expect(css).toContain("translateY(12px)");
+    expect(css).not.toContain("opacity: 0");
     const count = fs.readFileSync(path.join(root, "components/CountUp.tsx"), "utf8");
     expect(count).toContain("data-count-final={finalText}");
     expect(count).toContain("useState(finalText)");
   });
 
-  it("labels example slides as placeholders in every locale", () => {
+  it("keeps reviews off the pages and states send, not inbox receipt", () => {
+    expect(getDictionary("en").form.success).toBe("Your message was sent.");
+    expect(getDictionary("es").form.success).toBe("Su mensaje fue enviado.");
+    expect(getDictionary("pt-br").form.success).toBe("Sua mensagem foi enviada.");
     for (const locale of ["en", "es", "pt-br"] as const) {
-      const copy = getDictionary(locale).testimonials;
-      expect(copy.copyStatus).toBe("design-review");
-      expect(copy.notice.toLowerCase()).toMatch(/not |não |no son|no es|não são|não tem|no tiene/);
-      expect(copy.slides.length).toBeGreaterThan(1);
-      for (const slide of copy.slides) {
-        expect(slide.kicker.length).toBeGreaterThan(0);
-        expect(slide.attribution.toLowerCase()).not.toMatch(/john|jane|smith|5 stars|★★★★★/);
-      }
+      const text = JSON.stringify(getDictionary(locale));
+      expect(text).not.toMatch(/testimonial|Example slides|Not a customer review|recibió|recebeu|received your message/i);
     }
     const home = fs.readFileSync(path.join(root, "components/pages/HomePage.tsx"), "utf8");
+    const header = fs.readFileSync(path.join(root, "components/Header.tsx"), "utf8");
     expect(home).toContain('target="2004"');
     expect(home).toContain('target="2500"');
-    expect(home).not.toMatch(/app-center|appCenter/);
+    expect(home).not.toMatch(/app-center|appCenter|Testimonial|examples/);
+    expect(header).not.toMatch(/testimonial|examples/);
+    expect(fs.existsSync(path.join(root, "components/TestimonialSlider.tsx"))).toBe(false);
+  });
+
+  it("sets a different document language for each exported locale tree", () => {
+    expect(exportHtmlLang("en/index.html")).toBe("en");
+    expect(exportHtmlLang("es/contact/index.html")).toBe("es");
+    expect(exportHtmlLang("pt-br/app-center/index.html")).toBe("pt-BR");
+    expect(exportHtmlLang("404.html")).toBeNull();
+    const spanish = setDocumentLang('<html lang="en" class="fonts">', "es");
+    expect(spanish.startsWith('<html lang="es"')).toBe(true);
   });
 
   it("keeps new colored text pairs above the body-text contrast floor", () => {

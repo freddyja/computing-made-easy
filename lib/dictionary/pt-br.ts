@@ -170,33 +170,6 @@ const ptBr: Dictionary = {
       },
     ],
   },
-  testimonials: {
-    copyStatus: "design-review",
-    id: "examples",
-    heading: "Apenas slides de exemplo",
-    notice:
-      "Apenas para revisão do design. Estes slides não são avaliações de clientes. O site atual não tem depoimentos verificados para mostrar.",
-    prev: "Exemplo anterior",
-    next: "Próximo exemplo",
-    position: "Exemplo {current} de {total}",
-    slides: [
-      {
-        kicker: "Não é uma avaliação de cliente",
-        quote: "Exemplo de layout: uma frase curta entraria aqui depois que o Freddy aprovar um comentário real.",
-        attribution: "Sem nome — marcador",
-      },
-      {
-        kicker: "Não é uma avaliação de cliente",
-        quote: "Exemplo de layout: um segundo comentário aprovado entraria aqui. Nada neste slide é uma citação de um cliente.",
-        attribution: "Sem nome — marcador",
-      },
-      {
-        kicker: "Não é uma avaliação de cliente",
-        quote: "Exemplo de layout: um terceiro comentário aprovado entraria aqui. Não trate este texto como uma nota nem como uma avaliação.",
-        attribution: "Sem nome — marcador",
-      },
-    ],
-  },
   callBar: "Ligar para 407-925-2589",
   business: {
     kicker: "TI para empresas",
@@ -364,7 +337,7 @@ const ptBr: Dictionary = {
     submitting: "Enviando…",
     explanation:
       "Este formulário envia pelo e-mail do servidor do site somente quando esse e-mail está configurado. Se não estiver configurado, nada é enviado. A mensagem de sucesso aparece somente depois que o servidor aceita a mensagem. O link de e-mail abre o seu aplicativo de e-mail e não envia até que você o envie.",
-    success: "O Freddy recebeu a sua mensagem.",
+    success: "Sua mensagem foi enviada.",
     unconfigured: "Este site ainda não pode enviar a mensagem. Nada foi enviado.",
     unavailable: "A mensagem não pôde ser enviada. Nada foi enviado.",
     fallbackEmail: "Escrever para o Freddy",

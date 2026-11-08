@@ -170,33 +170,6 @@ export const en = {
       },
     ],
   },
-  testimonials: {
-    copyStatus: "design-review",
-    id: "examples",
-    heading: "Example slides only",
-    notice:
-      "Design review only. These slides are not customer reviews. The live site has no verified testimonials to display.",
-    prev: "Previous example",
-    next: "Next example",
-    position: "Example {current} of {total}",
-    slides: [
-      {
-        kicker: "Not a customer review",
-        quote: "Example layout: a short sentence would appear here after Freddy approves a real comment.",
-        attribution: "No name — placeholder",
-      },
-      {
-        kicker: "Not a customer review",
-        quote: "Example layout: a second approved comment would appear here. Nothing on this slide is a quotation from a client.",
-        attribution: "No name — placeholder",
-      },
-      {
-        kicker: "Not a customer review",
-        quote: "Example layout: a third approved comment would appear here. Do not treat this text as a rating or a review.",
-        attribution: "No name — placeholder",
-      },
-    ],
-  },
   callBar: "Call 407-925-2589",
   business: {
     kicker: "Business IT",
@@ -363,7 +336,7 @@ export const en = {
     submitting: "Sending…",
     explanation:
       "This form sends through the website’s server mail only when that mail is configured. If it is not configured, nothing is sent. A success message appears only after the server accepts the message. The email link opens your email app and does not send until you send it.",
-    success: "Freddy received your message.",
+    success: "Your message was sent.",
     unconfigured: "This website cannot send the message yet. Nothing was sent.",
     unavailable: "The message could not be sent. Nothing was sent.",
     fallbackEmail: "Email Freddy instead",

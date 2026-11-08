@@ -142,19 +142,6 @@ textarea:focus-visible {
   transform: none;
 }
 
-html.cme-motion .cme-reveal:not(.is-shown) {
-  opacity: 0;
-  transform: translateY(12px);
-}
-
-html.cme-motion .cme-reveal.is-shown {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 520ms ease,
-    transform 520ms ease;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
